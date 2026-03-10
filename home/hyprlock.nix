@@ -79,7 +79,7 @@
           dots_center = true;
           dots_size = 0.25;
           dots_spacing = 0.3;
-          fade_on_empty = false;
+          fade_on_empty = true;
           font_color = "rgba(255, 255, 255, 0.95)";
           inner_color = "rgba(255, 255, 255, 0.12)";
           outer_color = "rgba(255, 255, 255, 0.2)";
