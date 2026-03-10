@@ -10,10 +10,10 @@
     nixpkgs.config.allowUnfree = true;    
 
     imports = [
-      # Rofi app launcher 
       ./rofi.nix
       ./dunst.nix 
       ./hyprlock.nix
+      ./fastfetch.nix
     ];
     
     # Cava audio visualizer
@@ -28,7 +28,6 @@
         output.orientation = "top";
         smoothing.noise_reduction = 88;
         color = {
-            # background = "'#000000'";
             foreground = "'#FFFFFF'";
         };
       };
@@ -50,65 +49,6 @@
         SKIP_HOST_UPDATE = true;
       };
     };
-    programs.fastfetch= {
-      enable = true;
-      settings = {
-        logo = {
-          type = "small";
-          color = {
-            "1" = "blue";
-            "2" = "blue";
-          };
-          padding = {
-            left = 1;
-          };
-        };
-        display = {
-          separator = "  -> ";
-          color = {
-            keys = "blue";
-            title = "light_blue";
-          };
-          key = {
-            width = 7;
-            type = "icon";
-          };
-          bar = {
-            width = 10;
-            char = {
-              elapsed = "■" ;
-            };
-            charTotal = "-";
-          };
-          percent = {
-            type = 2;
-            color = {
-              green = "light_blue";
-              yellow = "light_yellow";
-              red = "light_red";
-            };
-          };
-        };
-        modules = [
-          {
-            type = "datetime";
-            key = "Date";
-            format = "{11}/{4}/{1}___{14}:{18}:{20}";
-          }
-            "os"
-          {
-            type = "cpuusage";
-          }
-          "memory"
-          "battery"
-          "localip"
-          {
-            type = "publicip";
-            timeout = 1000;
-          }
-        ];
-      };
-    };      
   };
 }
 
