@@ -24,10 +24,11 @@
 
       background = [
         {
-          blur_passes = 4;
-          blur_size = 10;
+          path = "screenshot";
+          blur_passes = 2;
+          blur_size = 7;
           noise = 0.02;
-          brightness = 0.7;
+          brightness = 0.9;
         }
       ];
 
