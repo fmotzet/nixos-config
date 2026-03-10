@@ -57,7 +57,7 @@
     # hyprshot screenshot tool
     programs.hyprshot = {
       enable = true;
-      saveLocation = "~/screenshots/"
+      saveLocation = "~/screenshots/";
     };
   };
 }
