@@ -1,20 +1,27 @@
 {
-  description = "Nixos COnfiguration flake for host nixos-TP-p15v";
+  description = "my nixos configuration flake";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-25.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }: {
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }: 
+    let
+      pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+    in {
     nixosConfigurations.nixos-TP-p15v = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [ 
           ./hosts/nixos-TP-p15v/configuration.nix
           home-manager.nixosModules.home-manager
+          {
+            home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
+          }
         ];
     };
   };

@@ -20,6 +20,7 @@
       ./fastfetch.nix
       ./kitty.nix
       ./keepassxc.nix
+      ./claude-code.nix
     ];
     
     programs.git = {
@@ -69,6 +70,7 @@
     programs.mullvad-vpn = {
       enable = true;
     };
+    # gui app for network manager
     programs.network-manager-applet = {
       enable = true;
     };

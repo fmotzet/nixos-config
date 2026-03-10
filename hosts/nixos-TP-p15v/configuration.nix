@@ -1,11 +1,4 @@
 { config, lib, pkgs, ... }:
-
-let
-  pkgs-claude = import (builtins.fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/d421b9441e8606f1c6c315bf3e5626ed4ea3d3b0.tar.gz";
-    sha256 = "sha256:1zxl9j15730vqgmj44avrm7m6pq4587da05iv8219a4whk3s6nfz";
-  }) { system = "x86_64-linux"; config.allowUnfree = true;};
-in
 {
   imports =
     [
@@ -174,7 +167,6 @@ in
     nfs-utils
     noto-fonts-color-emoji
     openvpn
-    pkgs-claude.claude-code
     playerctl
     ripgrep
     spotify
