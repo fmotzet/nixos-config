@@ -13,6 +13,7 @@
       # Rofi app launcher 
       ./rofi.nix
       ./dunst.nix 
+      ./hyprlock.nix
     ];
     
     # Cava audio visualizer

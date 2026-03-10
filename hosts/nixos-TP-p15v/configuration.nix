@@ -94,6 +94,9 @@ in
     xwayland.enable = true;
   };
 
+  # Enable hyprlock for PAM authentication
+  programs.hyprlock.enable = true;
+
   # Enable zsh as default user shell
   programs.zsh.enable = true;  
 
@@ -184,7 +187,6 @@ in
     ripgrep
     spotify
     strongswan
-    swaylock-effects
     swww
     teams-for-linux
     unzip
