@@ -69,6 +69,9 @@
     programs.mullvad-vpn = {
       enable = true;
     };
+    programs.network-manager-applet = {
+      enable = true;
+    };
   };
 }
 

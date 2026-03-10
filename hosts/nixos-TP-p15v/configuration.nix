@@ -133,6 +133,7 @@ in
 
   # Enable the Mullvad background service
   services.mullvad-vpn.enable = true;
+
   # Enable bluetooth.
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
@@ -169,7 +170,6 @@ in
     dnsmasq
     fprintd
     libnotify
-    networkmanagerapplet
     networkmanager_strongswan
     nfs-utils
     noto-fonts-color-emoji
