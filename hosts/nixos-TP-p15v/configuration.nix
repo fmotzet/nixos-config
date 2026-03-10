@@ -166,8 +166,6 @@ in
     brightnessctl
     dnsmasq
     fprintd
-    htop
-    hyprshot
     jiratui
     kitty
     keepass

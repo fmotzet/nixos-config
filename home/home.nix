@@ -54,6 +54,11 @@
         SKIP_HOST_UPDATE = true;
       };
     };
+    # hyprshot screenshot tool
+    programs.hyprshot = {
+      enable = true;
+      saveLocation = "~/screenshots/"
+    };
   };
 }
 
