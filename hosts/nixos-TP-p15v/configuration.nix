@@ -166,8 +166,6 @@ in
     brightnessctl
     dnsmasq
     fprintd
-    jiratui
-    kitty
     keepass
     ### LaTex ###
     pkgs.texlive.combined.scheme-full

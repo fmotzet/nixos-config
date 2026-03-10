@@ -14,6 +14,7 @@
       ./dunst.nix 
       ./hyprlock.nix
       ./fastfetch.nix
+      ./kitty.nix
     ];
     
     programs.git = {
