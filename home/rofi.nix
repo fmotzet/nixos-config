@@ -33,7 +33,7 @@ in {
         border = mkLiteral "2px";
         border-color = mkLiteral "@border-glass";
         border-radius = mkLiteral "20px";
-        width = mkLiteral "700px";
+        width = mkLiteral "800px";
         location = mkLiteral "center";
         anchor = mkLiteral "center";
         padding = 0;
@@ -73,7 +73,7 @@ in {
       };
       "listview" = {
         enabled = true;
-        columns = 1;
+        columns = 2;
         lines = 8;
         cycle = true;
         dynamic = true;
