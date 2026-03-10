@@ -6,6 +6,10 @@
   # Users who's home we want to configure
   home-manager.users.felix = {
     home.stateVersion = "23.05";
+    # force wayland for qt Apps like keepassxc
+    home.sessionVariables = {
+      QT_QPA_PLATFORM = "wayland";
+    };
     
     nixpkgs.config.allowUnfree = true;    
 
