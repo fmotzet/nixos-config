@@ -6,7 +6,7 @@
       name = "Hurmit Nerd Font";
       size = 11.0;
     };
-    themeFile = "Tokyo Night";
+    themeFile = "Tokyo-Night";
     settings = {
       cursor_shape = "underline";
       scrollback_lines = 20000;
