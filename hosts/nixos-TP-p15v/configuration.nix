@@ -166,7 +166,6 @@ in
     brightnessctl
     dnsmasq
     fprintd
-    keepass
     ### LaTex ###
     pkgs.texlive.combined.scheme-full
     ### LaTex ###

@@ -15,6 +15,7 @@
       ./hyprlock.nix
       ./fastfetch.nix
       ./kitty.nix
+      ./keepassxc.nix
     ];
     
     programs.git = {
