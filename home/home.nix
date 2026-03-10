@@ -75,7 +75,7 @@
       enable = true;
     };
     # playerctl media controller
-    services.playerctl = {
+    services.playerctld = {
       enable = true;
     };
     # ripgrep search tool
