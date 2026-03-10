@@ -11,7 +11,7 @@
       QT_QPA_PLATFORM = "wayland";
     };
     
-    nixpkgs.config.allowUnfree = true;    
+    nixpkgs.config.allowUnfree = true;
 
     imports = [
       ./rofi.nix

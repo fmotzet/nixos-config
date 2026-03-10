@@ -12,7 +12,10 @@
 
   outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }: 
     let
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+      pkgs-unstable = import nixpkgs-unstable {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
     in {
     nixosConfigurations.nixos-TP-p15v = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
