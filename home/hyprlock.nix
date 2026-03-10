@@ -89,7 +89,7 @@
           fail_color = "rgba(255, 100, 100, 0.4)";
           fail_text = "<i>incorrect</i>";
           capslock_color = "rgba(255, 200, 100, 0.3)";
-          placeholder_text = ''<span foreground="#ffffffb3">Password...</span>'';
+          placeholder_text = ''<span foreground="##ffffffb3">Password...</span>'';
           shadow_passes = 2;
           shadow_size = 8;
           shadow_color = "rgba(0, 0, 0, 0.15)";
