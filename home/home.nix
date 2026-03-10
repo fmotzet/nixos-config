@@ -71,7 +71,7 @@
       enable = true;
     };
     # gui app for network manager
-    programs.network-manager-applet = {
+    services.network-manager-applet = {
       enable = true;
     };
   };
