@@ -65,6 +65,10 @@
       enable = true;
       saveLocation = "~/screenshots/";
     };
+    # mullvad vpn client
+    programs.mullvad-vpn = {
+      enable = true;
+    };
   };
 }
 

@@ -166,11 +166,7 @@ in
     brightnessctl
     dnsmasq
     fprintd
-    ### LaTex ###
-    pkgs.texlive.combined.scheme-full
-    ### LaTex ###
     libnotify
-    mullvad-vpn
     networkmanagerapplet
     networkmanager_strongswan
     nfs-utils
