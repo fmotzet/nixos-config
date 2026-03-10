@@ -6,6 +6,6 @@
     settings = {
       preload = [ "~/wallpapers/current.png" ];
       wallpaper = [ ",~/wallpapers/current.png" ];
-    }
+    };
   };
 }
