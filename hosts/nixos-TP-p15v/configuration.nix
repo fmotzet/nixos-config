@@ -100,9 +100,6 @@ in
   # Enable zsh as default user shell
   programs.zsh.enable = true;  
 
-  # Enable the Flatpack service
-  services.flatpak.enable = true;
-
   # Enable Docker
   virtualisation.docker.enable = true;
  
@@ -131,6 +128,11 @@ in
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
+  # Enable the Flatpack service
+  services.flatpak.enable = true;
+
+  # Enable the Mullvad background service
+  services.mullvad-vpn.enable = true;
   # Enable bluetooth.
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
