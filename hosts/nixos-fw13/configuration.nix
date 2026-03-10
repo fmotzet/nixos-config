@@ -109,8 +109,6 @@
     nnn
     noto-fonts-color-emoji
     openvpn
-    ripgrep
-    spotify
     swww
     unzip
     vim

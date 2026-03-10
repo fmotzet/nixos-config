@@ -168,8 +168,6 @@
     nfs-utils
     noto-fonts-color-emoji
     openvpn
-    ripgrep
-    spotify
     strongswan
     swww
     teams-for-linux

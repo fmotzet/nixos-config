@@ -77,6 +77,14 @@
     services.playerctl = {
       enable = true;
     };
+    # ripgrep search tool
+    programs.ripgrep = {
+      enable = true;
+    };
+    # spotify media player
+    programs.spotify-player = {
+      enable = true;
+    };
   };
 }
 
