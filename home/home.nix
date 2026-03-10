@@ -15,11 +15,10 @@
 
     imports = [
       ./rofi.nix
-      ./dunst.nix 
+      ./dunst.nix
       ./hyprlock.nix
       ./fastfetch.nix
       ./kitty.nix
-      ./keepassxc.nix
       ./claude-code.nix
     ];
     

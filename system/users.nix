@@ -2,10 +2,9 @@
 {
   users.users.felix = {
     isNormalUser = true;
-    extraGroups = [ 
+    extraGroups = [
       "wheel"
-      "docker"
-      "wireshark" 
+      "input"
     ]; 
     packages = with pkgs; [
       tree

@@ -27,5 +27,15 @@
           }
         ];
     };
+    nixosConfigurations.nixos-fw13 = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./hosts/nixos-fw13/configuration.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
+        }
+      ];
+    };
   };
 }

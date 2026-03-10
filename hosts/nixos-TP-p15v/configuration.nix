@@ -4,7 +4,7 @@
     [
       ./hardware-configuration.nix
       ../../system/users.nix
-      ../../home/home.nix
+      ../../home/home-TP-p15v.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -95,6 +95,7 @@
 
   # Enable Docker
   virtualisation.docker.enable = true;
+  users.users.felix.extraGroups = [ "docker" "wireshark" ];
  
   # Enable CUPS to print documents.
   services.printing = {
