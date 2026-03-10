@@ -166,7 +166,6 @@ in
     brightnessctl
     dnsmasq
     fprintd
-    git
     htop
     hyprshot
     jiratui

@@ -16,6 +16,9 @@
       ./fastfetch.nix
     ];
     
+    programs.git = {
+      enable = true;
+    };
     # Cava audio visualizer
     programs.cava = {
       enable = true;
@@ -32,6 +35,7 @@
         };
       };
     };
+    # btop process and system monitor
     programs.btop = {
       enable = true;
       settings = {
@@ -43,6 +47,7 @@
         proc_tree = "true";
       };
     };
+    # discord chat client
     programs.discord = {
       enable = true;
       settings = {
