@@ -106,9 +106,6 @@
     cowsay
     fprintd
     htop
-    ### LaTex ###
-    pkgs.texlive.combined.scheme-full
-    ### LaTex ###
     playerctl
     libnotify
     nfs-utils
