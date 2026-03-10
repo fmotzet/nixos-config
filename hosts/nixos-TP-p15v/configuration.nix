@@ -168,7 +168,6 @@
     nfs-utils
     noto-fonts-color-emoji
     openvpn
-    playerctl
     ripgrep
     spotify
     strongswan

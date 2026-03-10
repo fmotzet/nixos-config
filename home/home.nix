@@ -73,6 +73,10 @@
     services.network-manager-applet = {
       enable = true;
     };
+    # playerctl media controller
+    services.playerctl = {
+      enable = true;
+    };
   };
 }
 

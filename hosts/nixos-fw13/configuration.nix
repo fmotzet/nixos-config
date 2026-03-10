@@ -103,10 +103,7 @@
     brave
     brightnessctl
     burpsuite
-    cowsay
     fprintd
-    htop
-    playerctl
     libnotify
     nfs-utils
     nnn
