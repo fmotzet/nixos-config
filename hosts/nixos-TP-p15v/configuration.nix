@@ -169,7 +169,6 @@
     noto-fonts-color-emoji
     openvpn
     strongswan
-    swww
     teams-for-linux
     unzip
     vscodium

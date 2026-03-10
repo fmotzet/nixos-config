@@ -20,6 +20,7 @@
       ./fastfetch.nix
       ./kitty.nix
       ./claude-code.nix
+      ./hyprpaper.nix
     ];
     
     programs.git = {

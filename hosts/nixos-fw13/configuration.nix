@@ -109,7 +109,6 @@
     nnn
     noto-fonts-color-emoji
     openvpn
-    swww
     unzip
     vim
     vscode
