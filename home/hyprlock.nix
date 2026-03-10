@@ -61,7 +61,7 @@
         }
         # Greeting
         {
-          text = "Hi, $USER";
+          text = "oi $USER!";
           color = "rgba(255, 255, 255, 0.8)";
           font_size = 16;
           font_family = "Sans";
