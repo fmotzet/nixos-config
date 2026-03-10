@@ -24,7 +24,6 @@
 
       background = [
         {
-          path = "screenshot";
           blur_passes = 4;
           blur_size = 10;
           noise = 0.02;
