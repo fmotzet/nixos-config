@@ -76,21 +76,21 @@
       };
 
       urgency_low = {
-        background = "#0F0F19E0";
+        background = "#dbdbffc7";
         foreground = "#FFFFFFB3";
         frame_color = "#FFFFFF33";
         timeout = 5;
       };
 
       urgency_normal = {
-        background = "#0F0F19E0";
+        background = "#dbdbffc7";
         foreground = "#FFFFFFFF";
         frame_color = "#FFFFFF33";
         timeout = 8;
       };
 
       urgency_critical = {
-        background = "#1A0A0AE8";
+        background = "#dbdbffc7";
         foreground = "#FFFFFFFF";
         frame_color = "#FF4444AA";
         timeout = 0;
