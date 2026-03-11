@@ -84,19 +84,12 @@
   # Power & thermal management
   services.power-profiles-daemon.enable = true;
 
-  # AMD pstate EPP: balance_power, going for quiet and cool kind of
-  services.udev.extraRules = ''
-    # Set CPU energy performance preference to balance_power
-    SUBSYSTEM=="module", ACTION=="add", KERNEL=="amd_pstate", RUN+="${pkgs.bash}/bin/bash -c 'for f in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do echo balance_power > $$f; done'"
-    # Pin GPU to low power for 2D desktop compositing
-    SUBSYSTEM=="drm", KERNEL=="card*", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
-  '';
-
-  # Disable CPU boost to prevent heat spikes
-  # boot.kernelParams = [ "amd_pstate=active" "amd_pstate.prefcore=enabled" ];
-  # systemd.tmpfiles.rules = [
-  #   "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
-  # ];
+  # AMD pstate EPP + GPU + boost: going for quiet and cool kind of
+  systemd.tmpfiles.rules = [
+    "w /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - balance_power"
+    "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
+    "w /sys/class/drm/card1/device/power_dpm_force_performance_level - - - - low"
+  ];
 
   # Enable thinkpad_acpi fan monitoring
   boot.extraModprobeConfig = ''
