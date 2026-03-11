@@ -67,9 +67,9 @@ in
           tooltip-format = "time to {timeTo}\ncycles: {cycles} | health: {health}";
         };
         bluetooth = {
-          format = " {status}";
+          format = " {status}";
           format-disabled = "";
-          format-connected = " {num_connections} connected";
+          format-connected = " {num_connections} connected";
           on-click = "bash ${toggle-bluetooth}";
           tooltip-format = "name: {controller_alias} connections: {num_connections}\naddr: {controller_address}";
           tooltip-format-connected = "name: {controller_alias} connections: {num_connections}\naddr: {controller_address}\nconnected to: {device_enumerate}";
@@ -77,7 +77,7 @@ in
         };
         cpu = {
           interval = 1;
-          format = "{avg_frequency} GHz   {usage}%";
+          format = "{avg_frequency} GHz   {usage}%";
           min-length = 15;
           max-length = 20;
           on-click = "kitty btop";
@@ -144,7 +144,7 @@ in
         };
         memory = {
           interval = 1;
-          format = "{used} GiB ";
+          format = "{used} GiB ";
           min-length = 11;
           max-length = 15;
           on-click = "kitty btop";
