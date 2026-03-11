@@ -81,6 +81,28 @@
   # Enable the Mullvad background service
   services.mullvad-vpn.enable = true;
 
+  # Power & thermal management
+  services.power-profiles-daemon.enable = true;
+
+  # AMD pstate EPP: balance_power, going for quiet and cool kind of
+  services.udev.extraRules = ''
+    # Set CPU energy performance preference to balance_power
+    SUBSYSTEM=="module", ACTION=="add", KERNEL=="amd_pstate", RUN+="${pkgs.bash}/bin/bash -c 'for f in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do echo balance_power > $$f; done'"
+    # Pin GPU to low power for 2D desktop compositing
+    SUBSYSTEM=="drm", KERNEL=="card*", DRIVERS=="amdgpu", ATTR{device/power_dpm_force_performance_level}="low"
+  '';
+
+  # Disable CPU boost to prevent heat spikes
+  # boot.kernelParams = [ "amd_pstate=active" "amd_pstate.prefcore=enabled" ];
+  # systemd.tmpfiles.rules = [
+  #   "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
+  # ];
+
+  # Enable thinkpad_acpi fan monitoring
+  boot.extraModprobeConfig = ''
+    options thinkpad_acpi fan_control=1
+  '';
+
   # Enable bluetooth.
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
