@@ -13,6 +13,8 @@
     
     nixpkgs.config.allowUnfree = true;
 
+    xdg.portal.config.common.default = "*";
+
     imports = [
       ./rofi.nix
       ./dunst.nix
