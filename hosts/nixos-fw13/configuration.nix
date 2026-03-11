@@ -85,12 +85,6 @@
   programs.firefox.enable = true;
 
   environment.sessionVariables = {
-    # Cursor
-    XCURSOR_THEME = "rose-pine-hyprcursor";
-    XCURSOR_SIZE = "36";
-    #XCURSOR_PATH = "$HOME/.local/share/icons";
-    
-    #ELECTRON_OZONE_PLATFORM_HINT = "wayland";
     NIXOS_OZONE_WL=1;
     MOZ_ENABLE_WAYLAND = "1";
   };

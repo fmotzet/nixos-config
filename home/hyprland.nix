@@ -9,8 +9,8 @@
 
       # Environment variables
       env = [
-        "HYPRCURSOR_THEME,Bibata-Modern-Classic"
-        "HYPRCURSOR_SIZE,24"
+        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
+        "HYPRCURSOR_SIZE,36"
       ];
 
       # Input
@@ -153,7 +153,6 @@
         "blueman-applet"
         "waybar"
         "dunst"
-        "hyprctl setcursor rose-pine-hyprcursor 36"
         "xrdb -load ~/.Xresources"
         "kitty --detach btop"
       ];

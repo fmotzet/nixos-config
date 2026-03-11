@@ -96,9 +96,6 @@
   programs.obs-studio.enable = true;
 
   environment.sessionVariables = {
-    # Cursor
-    XCURSOR_THEME = "rose-pine-hyprcursor";
-    XCURSOR_SIZE = "36";
     NIXOS_OZONE_WL=1;
     MOMOZ_ENABLE_WAYLAND = "1";
   };

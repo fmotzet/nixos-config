@@ -25,6 +25,7 @@
       ./hyprpaper.nix
       ./waybar.nix
       ./hyprland.nix
+      ./cursor.nix
     ];
     
     programs.git = {
