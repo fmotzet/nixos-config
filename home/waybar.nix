@@ -59,17 +59,17 @@ in
             critical = 20;
           };
           format = "{icon}  {capacity}%";
-          format-charging = " {capacity}%";
-          format-plugged = " {capacity}%";
+          format-charging = " {capacity}%";
+          format-plugged = " {capacity}%";
           format-alt = "{time} {icon}";
-          format-icons = ["" "" "" "" ""];
+          format-icons = ["" "" "" "" ""];
           tooltip = true;
           tooltip-format = "time to {timeTo}\ncycles: {cycles} | health: {health}";
         };
         bluetooth = {
-          format = " {status}";
+          format = " {status}";
           format-disabled = "";
-          format-connected = " {num_connections} connected";
+          format-connected = " {num_connections} connected";
           on-click = "bash ${toggle-bluetooth}";
           tooltip-format = "name: {controller_alias} connections: {num_connections}\naddr: {controller_address}";
           tooltip-format-connected = "name: {controller_alias} connections: {num_connections}\naddr: {controller_address}\nconnected to: {device_enumerate}";
@@ -77,7 +77,7 @@ in
         };
         cpu = {
           interval = 1;
-          format = "{avg_frequency} GHz   {usage}%";
+          format = "{avg_frequency} GHz   {usage}%";
           min-length = 15;
           max-length = 20;
           on-click = "kitty btop";
@@ -108,7 +108,7 @@ in
         clock = {
           interval = 60;
           tooltip = true;
-          format = "{:%H:%M   %d/%m/%y}";
+          format = " {:%H:%M   %d/%m/%y}";
           tooltip-format = "<tt><big>{calendar}</big></tt>";
           on-click = "firefox -new-window https://calendar.google.com/calendar/u/1/r";
         };
@@ -134,7 +134,7 @@ in
           numlock = true;
           capslock = true;
           format = {
-            numlock = "  Num {icon}";
+            numlock = "  Num {icon}";
             capslock = "Caps {icon}";
           };
           format-icons = {
@@ -144,7 +144,7 @@ in
         };
         memory = {
           interval = 1;
-          format = "{used} GiB ";
+          format = "{used} GiB ";
           min-length = 11;
           max-length = 15;
           on-click = "kitty btop";
@@ -156,25 +156,25 @@ in
         };
         pulseaudio = {
           format = "{icon} {volume}%";
-          format-muted = "  Muted";
+          format-muted = "  Muted";
           on-click = "amixer set Master toggle";
           on-scroll-up = "amixer set Master 1%+";
           on-scroll-down = "amixer set Master 1%-";
           scroll-step = 5;
           format-icons = {
-            headphone = "";
-            hands-free = "";
-            headset = "";
-            phone = "";
-            portable = "";
-            car = "";
-            default = ["" "" ""];
+            headphone = "";
+            hands-free = "";
+            headset = "";
+            phone = "";
+            portable = "";
+            car = "";
+            default = ["" "" ""];
           };
         };
         "pulseaudio#microphone" = {
           format = "{format_source}";
-          format-source = " {volume}%";
-          format-source-muted = " Muted";
+          format-source = " {volume}%";
+          format-source-muted = " Muted";
           on-click = "amixer set Capture toggle";
           on-scroll-up = "amixer set Capture 1%+";
           on-scroll-down = "amixer set Capture 1%-";
@@ -184,7 +184,7 @@ in
           interval = 1;
           hwmon-path-abs = "/sys/devices/platform/coretemp.0/hwmon/";
           input-filename = "temp1_input";
-          format = "{temperatureC}°C ";
+          format = "{temperatureC}°C ";
           min-length = 6;
           max-length = 8;
           on-click = "kitty btop";
