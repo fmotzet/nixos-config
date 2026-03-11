@@ -40,6 +40,9 @@
     xwayland.enable = true;
   };
 
+  # XDG portal config (required since xdg-desktop-portal 1.17)
+  xdg.portal.config.common.default = "*";
+
   # Enable hyprlock for PAM authentication
   programs.hyprlock.enable = true;
 
