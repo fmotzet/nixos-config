@@ -148,7 +148,6 @@
 
       # Common startup apps (host-specific ones go in home-<host>.nix)
       exec-once = [
-        "swww-daemon"
         "nm-applet --indicator"
         "blueman-applet"
         "waybar"
