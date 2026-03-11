@@ -83,7 +83,7 @@ in
           on-click = "kitty btop";
         };
         cava = {
-          cava_config = "~/.config/cava/config";
+          cava_config = "/home/felix/.config/cava/config";
           framerate = 30;
           sensitivity = 1;
           bars = 14;
