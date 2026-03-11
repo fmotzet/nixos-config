@@ -156,7 +156,6 @@
   environment.systemPackages = with pkgs; [
     acpi
     alsa-utils
-    brave
     brightnessctl
     dnsmasq
     fprintd

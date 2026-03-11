@@ -91,6 +91,14 @@
     programs.spotify-player = {
       enable = true;
     };
+    # brave browser with dark mode
+    programs.brave = {
+      enable = true;
+      commandLineArgs = [
+        "--force-dark-mode"
+        "--enable-features=WebUIDarkMode"
+      ];
+    };
   };
 }
 

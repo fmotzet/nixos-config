@@ -94,7 +94,6 @@
   environment.systemPackages = with pkgs; [
     acpi
     alsa-utils
-    brave
     brightnessctl
     burpsuite
     fprintd
