@@ -21,6 +21,7 @@
       ./kitty.nix
       ./claude-code.nix
       ./hyprpaper.nix
+      ./waybar.nix
     ];
     
     programs.git = {
