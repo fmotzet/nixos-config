@@ -37,10 +37,10 @@
         }
       ];
     };
-    nixosConfigurations.nixos-TP-T14G6 = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.nixos-TP-t14g6 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        ./hosts/nixos-TP-T14G6/configuration.nix
+        ./hosts/nixos-TP-t14g6/configuration.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
