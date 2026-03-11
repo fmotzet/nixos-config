@@ -173,7 +173,6 @@
     unzip
     vscodium
     vim
-    waybar
     wireguard-tools
     wget
     wttrbar

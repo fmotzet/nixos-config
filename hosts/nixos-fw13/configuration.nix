@@ -112,7 +112,6 @@
     unzip
     vim
     vscode
-    waybar
     wireguard-tools
     wireshark
     wget
