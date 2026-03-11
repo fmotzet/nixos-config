@@ -2,6 +2,6 @@
 {
   imports = [
     ./home.nix
-    ./keepassxc.nix
+    #./keepassxc.nix
   ];
 }
