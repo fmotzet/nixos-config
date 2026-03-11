@@ -154,6 +154,7 @@
         "dunst"
         "xrdb -load ~/.Xresources"
         "kitty --detach btop"
+        "sleep 1 && hyprctl reload"
       ];
 
       # Layer rules
