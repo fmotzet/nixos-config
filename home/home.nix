@@ -22,6 +22,7 @@
       ./claude-code.nix
       ./hyprpaper.nix
       ./waybar.nix
+      ./hyprland.nix
     ];
     
     programs.git = {
