@@ -4,11 +4,10 @@
     enable = true;
     package = null; # managed by NixOS module programs.hyprland.enable
     settings = {
-      # Monitor
-      monitor = "eDP-1,1920x1080@144,0x0,1";
-
       # Environment variables
       env = [
+        "XCURSOR_SIZE,36"
+        "XCURSOR_THEME,rose-pine-hyprcursor"
         "HYPRCURSOR_THEME,rose-pine-hyprcursor"
         "HYPRCURSOR_SIZE,36"
       ];
@@ -25,11 +24,11 @@
 
       # General
       general = {
-        gaps_in = 2;
-        gaps_out = 3;
-        border_size = 2;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(faa0e2ee) rgba(ffffffee) 45deg";
+        gaps_in = 3;
+        gaps_out = 6;
+        border_size = 1;
+        "col.active_border" = "rgba(ffffffaa) rgba(ffffff66) 45deg";
+        "col.inactive_border" = "rgba(ffffff33) rgba(ffffff22) 45deg";
         layout = "dwindle";
         resize_on_border = true;
         extend_border_grab_area = 15;
@@ -39,28 +38,37 @@
 
       # Decoration
       decoration = {
-        rounding = 2;
-        active_opacity = 0.99;
-        inactive_opacity = 0.93;
+        rounding = 12;
         blur = {
           enabled = true;
-          size = 5;
+          size = 1;
           passes = 2;
+          new_optimizations = true;
         };
       };
 
       # Animations
       animations = {
         enabled = true;
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-        animation = [
-          "windows, 1, 7, myBezier"
-          "windowsOut, 1, 7, default, popin 80%"
-          "border, 1, 10, default"
-          "borderangle, 1, 8, default"
-          "fade, 1, 7, default"
-          "workspaces, 1, 6, default"
+        bezier = [
+          "myBezier, 0.05, 0.9, 0.1, 1.05"
+          "smooth, 0.25, 0.1, 0.25, 1"
         ];
+        animation = [
+          "windows, 1, 5, smooth, slide"
+          "windowsOut, 1, 5, smooth, slide"
+          "border, 1, 10, smooth"
+          "borderangle, 1, 100, smooth, loop"
+          "fade, 1, 5, smooth"
+          "workspaces, 1, 5, smooth, slidefadevert"
+        ];
+      };
+
+      # Cursor
+      cursor = {
+        no_hardware_cursors = 0;
+        enable_hyprcursor = true;
+        persistent_warps = true;
       };
 
       # Layout
@@ -83,17 +91,28 @@
         "$mainMod, W, exec, kitty yazi"
         "$mainMod, C, killactive,"
         "$mainMod, M, exit,"
+        "$mainMod SHIFT, F, fullscreen"
         "$mainMod, V, togglefloating,"
-        "$mainMod, P, exec, togglegroup,"
+        "$mainMod, R, exec, yazi"
+        "$mainMod, P, pseudo,"
+        "$mainMod, J, togglesplit,"
         "$mainMod, S, exec, rofi -show drun -show-icons"
         # Lock screen
-        "$mainMod, L, exec, hyprlock --grace 5"
+        "$mainMod, L, exec, swaylock"
         # Shutdown
         "$mainMod SHIFT, k, exec, shutdown now"
-        # Change split direction
-        "$mainMod SHIFT, p, togglesplit"
         # Screenshot
         "$mainMod SHIFT, s, exec, hyprshot -m region"
+        "$mainMod SHIFT, x, exec, hyprshot -m output -m DP-4"
+        # Apps
+        "$mainMod SHIFT, c, exec, code --enable-features=UseOzonePlatform --ozone-platform=wayland"
+        "$mainMod SHIFT, b, exec, spotify --enable-features=UseOzonePlatform --ozone-platform=wayland"
+        # Brightness and volume
+        ", xf86monbrightnessup, exec, brightnessctl set 10%+"
+        ", xf86monbrightnessdown, exec, brightnessctl set 10%-"
+        ", xf86audioraisevolume, exec, amixer set Master 5%+ unmute"
+        ", xf86audiolowervolume, exec, amixer set Master 5%- unmute"
+        ", xf86audiomute, exec, amixer set Master toggle"
         # Move focus
         "$mainMod, left, movefocus, l"
         "$mainMod, right, movefocus, r"
@@ -128,13 +147,8 @@
         "$mainMod, mouse_up, workspace, e-1"
       ];
 
-      # Locked binds (work even when locked)
+      # Media key binds
       bindl = [
-        ", xf86monbrightnessup, exec, brightnessctl set 10%+"
-        ", xf86monbrightnessdown, exec, brightnessctl set 10%-"
-        ", xf86audioraisevolume, exec, amixer set Master 5%+ unmute"
-        ", xf86audiolowervolume, exec, amixer set Master 5%- unmute"
-        ", xf86audiomute, exec, amixer set Master toggle"
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
@@ -163,6 +177,8 @@
         "ignorezero, rofi"
         "blur, waybar"
         "ignorezero, waybar"
+        "blurpopups, waybar"
+        "ignorealpha 0.2, waybar"
       ];
     };
   };
