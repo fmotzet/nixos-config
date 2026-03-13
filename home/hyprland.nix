@@ -4,6 +4,8 @@
     enable = true;
     package = null; # managed by NixOS module programs.hyprland.enable
     settings = {
+      # Monitor (set per-host in home-<host>.nix)
+
       # Environment variables
       env = [
         "XCURSOR_SIZE,36"
