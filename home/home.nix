@@ -114,7 +114,7 @@
         "--enable-features=WebUIDarkMode"
       ];
     };
-    programs.swww = {
+    swervices.swww = {
       enable = true;
     };
   };
