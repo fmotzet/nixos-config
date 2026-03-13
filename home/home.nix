@@ -28,6 +28,21 @@
       ./cursor.nix
     ];
     
+    programs.bash = {
+      enable = true;
+      historySize = 100000;
+      historyFileSize = 200000;
+      shellAliases = {
+        rebuild = "sudo nixos-rebuild switch --flake /home/felix/nixos-config/";
+      };
+      initExtra = ''
+        if [ "$TERM" = "xterm-kitty" ]; then
+          fastfetch
+          PS1="\n\[\033[01;34m\]<\w> $\[\033[00m\] "
+        fi
+      '';
+    };
+
     programs.git = {
       enable = true;
     };
