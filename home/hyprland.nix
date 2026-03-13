@@ -98,7 +98,7 @@
         "$mainMod, J, togglesplit,"
         "$mainMod, S, exec, rofi -show drun -show-icons"
         # Lock screen
-        "$mainMod, L, exec, swaylock"
+        "$mainMod, L, exec, hyprlock --grace 5"
         # Shutdown
         "$mainMod SHIFT, k, exec, shutdown now"
         # Screenshot
