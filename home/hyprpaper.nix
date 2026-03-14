@@ -1,5 +1,6 @@
 { ... }:
-# wallpaper engine
+# CURRENTLY DISABLED, USING SWWW INSTEAD
+# wallpaper engine 
 {
   services.hyprpaper = {
     enable = true;

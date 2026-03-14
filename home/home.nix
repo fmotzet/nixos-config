@@ -22,7 +22,6 @@
       ./fastfetch.nix
       ./kitty.nix
       ./claude-code.nix
-      ./hyprpaper.nix
       ./waybar/waybar.nix
       ./hyprland.nix
       ./cursor.nix
