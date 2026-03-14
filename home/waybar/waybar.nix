@@ -10,7 +10,7 @@ let
   '';
 in
 {
-  xdg.configFile."waybar/images/nixos-baw.png".source = ./waybar/nixos-baw.png;
+  xdg.configFile."waybar/images/nixos-baw.png".source = ./nixos-baw.png;
 
   programs.waybar = {
     enable = true;
