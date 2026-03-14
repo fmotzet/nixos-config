@@ -35,10 +35,10 @@
       # Time display
       label = [
         {
-          text = ''cmd[update:1000] echo "<span font_weight='300'>$(date +'%H:%M')</span>"'';
+          text = ''cmd[update:1000] echo "<span font_weight='bold'>$(date +'%H:%M')</span>"'';
           color = "rgba(255, 255, 255, 0.95)";
           font_size = 120;
-          font_family = "Sans Light";
+          font_family = "SpaceMono Nerd Font Bold";
           position = "0, 200";
           halign = "center";
           valign = "center";
@@ -48,10 +48,10 @@
         }
         # Date display
         {
-          text = ''cmd[update:60000] echo "<span font_weight='400'>$(date +'%A, %d %B')</span>"'';
+          text = ''cmd[update:60000] echo "<span font_weight='bold'>$(date +'%A, %d %B')</span>"'';
           color = "rgba(255, 255, 255, 0.7)";
           font_size = 22;
-          font_family = "Sans";
+          font_family = "SpaceMono Nerd Font Bold";
           position = "0, 110";
           halign = "center";
           valign = "center";
@@ -64,7 +64,7 @@
           text = "oi $USER!";
           color = "rgba(255, 255, 255, 0.8)";
           font_size = 16;
-          font_family = "Sans";
+          font_family = "SpaceMono Nerd Font Bold";
           position = "0, -30";
           halign = "center";
           valign = "center";
