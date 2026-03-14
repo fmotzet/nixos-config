@@ -258,7 +258,7 @@ in
       }
 
       window#waybar {
-          background: rgba(15, 15, 25, 0.1);
+          background: rgba(219, 219, 220, 0.1);
           color: #ffffff;
           border-bottom: 1px solid rgba(255, 255, 255, 0);
       }

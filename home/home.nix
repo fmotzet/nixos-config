@@ -23,7 +23,7 @@
       ./kitty.nix
       ./claude-code.nix
       ./hyprpaper.nix
-      ./waybar.nix
+      ./waybar/waybar.nix
       ./hyprland.nix
       ./cursor.nix
     ];
