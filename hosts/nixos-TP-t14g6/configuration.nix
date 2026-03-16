@@ -4,6 +4,7 @@
     [
       ./hardware-configuration.nix
       ../../system/users.nix
+      ../../system/rdm.nix
       ../../home/home-TP-t14g6.nix
     ];
 
