@@ -116,9 +116,6 @@
     services.swww = {
       enable = true;
     };
-    services.remmina = {
-      enable = true;
-    };
   };
 }
 
