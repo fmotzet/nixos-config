@@ -10,16 +10,7 @@ let
       hash = "sha256-OT+uu/IPunewVAk/qLX09C4QAWwQdRS7ghSAlAJQAZo=";
     };
 
-    nativeBuildInputs = with pkgs; [ dpkg autoPatchelfHook ];
-
-    buildInputs = with pkgs; [
-      stdenv.cc.cc.lib
-      icu
-      openssl
-      zlib
-      fontconfig
-      freetype
-    ];
+    nativeBuildInputs = with pkgs; [ dpkg patchelf ];
 
     unpackPhase = ''
       dpkg-deb -x $src .
@@ -30,6 +21,14 @@ let
       cp -r usr/lib/devolutions/RemoteDesktopManager $out/lib
       cp -r usr/share $out/share
 
+      # Patch only the .NET runtime libraries that need libstdc++
+      # The GTK/WebKit deps in libWebView-*.so are provided by the FHS env at runtime
+      for f in $out/lib/libcoreclr.so $out/lib/libclrjit.so $out/lib/libhostpolicy.so $out/lib/libhostfxr.so; do
+        if [ -f "$f" ]; then
+          patchelf --set-rpath "${pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib pkgs.icu pkgs.openssl pkgs.zlib ]}" "$f"
+        fi
+      done
+
       # Fix desktop file
       substituteInPlace $out/share/applications/com.devolutions.remotedesktopmanager.desktop \
         --replace-fail "Exec=remotedesktopmanager" "Exec=rdm"
@@ -39,6 +38,9 @@ let
   rdm = pkgs.buildFHSEnv {
     name = "rdm";
     targetPkgs = pkgs: with pkgs; [
+      # .NET / CoreCLR
+      stdenv.cc.cc.lib
+
       # GTK and rendering
       gtk3
       glib
@@ -48,6 +50,7 @@ let
       atk
       at-spi2-atk
       at-spi2-core
+      harfbuzz
 
       # WebKit (RDM depends on libwebkit2gtk-4.1)
       webkitgtk_4_1
@@ -83,7 +86,6 @@ let
       libpulseaudio
 
       # Misc native deps
-      stdenv.cc.cc.lib
       libsecret
       gnome-keyring
       dbus
@@ -96,6 +98,9 @@ let
       nss
       cups
       expat
+      libsoup_3
+      lttng-ust
+      libgcrypt
     ];
 
     runScript = pkgs.writeShellScript "rdm-wrapper" ''
