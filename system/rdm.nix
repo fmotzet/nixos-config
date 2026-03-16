@@ -30,6 +30,10 @@ let
   rdm = pkgs.buildFHSEnv {
     name = "rdm";
     targetPkgs = pkgs: with pkgs; [
+      # .NET / CoreCLR runtime deps
+      stdenv.cc.cc.lib
+      dotnetCorePackages.runtime_9_0
+
       # GTK and rendering
       gtk3
       glib
