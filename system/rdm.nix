@@ -10,7 +10,10 @@ let
       hash = "sha256-OT+uu/IPunewVAk/qLX09C4QAWwQdRS7ghSAlAJQAZo=";
     };
 
-    nativeBuildInputs = with pkgs; [ dpkg patchelf ];
+    nativeBuildInputs = [ pkgs.dpkg ];
+
+    dontPatchELF = true;
+    dontStrip = true;
 
     unpackPhase = ''
       dpkg-deb -x $src .
@@ -20,14 +23,6 @@ let
       mkdir -p $out
       cp -r usr/lib/devolutions/RemoteDesktopManager $out/lib
       cp -r usr/share $out/share
-
-      # Patch only the .NET runtime libraries that need libstdc++
-      # The GTK/WebKit deps in libWebView-*.so are provided by the FHS env at runtime
-      for f in $out/lib/RemoteDesktopManager $out/lib/libcoreclr.so $out/lib/libclrjit.so $out/lib/libhostpolicy.so $out/lib/libhostfxr.so; do
-        if [ -f "$f" ]; then
-          patchelf --set-rpath "${pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib pkgs.icu pkgs.openssl pkgs.zlib ]}" "$f"
-        fi
-      done
 
       # Fix desktop file
       substituteInPlace $out/share/applications/com.devolutions.remotedesktopmanager.desktop \
@@ -106,6 +101,7 @@ let
     runScript = pkgs.writeShellScript "rdm-wrapper" ''
       export GDK_BACKEND=x11
       export DOTNET_EnableWriteXorExecute=0
+      export LD_LIBRARY_PATH="${rdm-unwrapped}/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
       exec ${rdm-unwrapped}/lib/RemoteDesktopManager "$@"
     '';
 
