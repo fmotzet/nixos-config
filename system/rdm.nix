@@ -82,7 +82,11 @@ let
       alsa-lib
       libpulseaudio
 
+      # RDP H.264 codec
+      openh264
+
       # Misc native deps
+      librsvg
       libsecret
       gnome-keyring
       dbus
@@ -103,6 +107,7 @@ let
     runScript = pkgs.writeShellScript "rdm-wrapper" ''
       export GDK_BACKEND=x11
       export DOTNET_EnableWriteXorExecute=0
+      export GDK_PIXBUF_MODULE_FILE=$(echo /usr/lib/gdk-pixbuf-2.0/*/loaders.cache)
       export LD_LIBRARY_PATH="${rdm-unwrapped}/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
       exec ${rdm-unwrapped}/lib/RemoteDesktopManager "$@"
     '';
