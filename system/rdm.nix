@@ -85,6 +85,10 @@ let
       # RDP H.264 codec
       openh264
 
+      # GTK theme + icons
+      gnome-themes-extra
+      adwaita-icon-theme
+
       # Misc native deps
       librsvg
       libsecret
