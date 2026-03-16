@@ -23,7 +23,7 @@ let
 
       # Patch only the .NET runtime libraries that need libstdc++
       # The GTK/WebKit deps in libWebView-*.so are provided by the FHS env at runtime
-      for f in $out/lib/libcoreclr.so $out/lib/libclrjit.so $out/lib/libhostpolicy.so $out/lib/libhostfxr.so; do
+      for f in $out/lib/RemoteDesktopManager $out/lib/libcoreclr.so $out/lib/libclrjit.so $out/lib/libhostpolicy.so $out/lib/libhostfxr.so; do
         if [ -f "$f" ]; then
           patchelf --set-rpath "${pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib pkgs.icu pkgs.openssl pkgs.zlib ]}" "$f"
         fi
