@@ -10,7 +10,16 @@ let
       hash = "sha256-OT+uu/IPunewVAk/qLX09C4QAWwQdRS7ghSAlAJQAZo=";
     };
 
-    nativeBuildInputs = [ pkgs.dpkg ];
+    nativeBuildInputs = with pkgs; [ dpkg autoPatchelfHook ];
+
+    buildInputs = with pkgs; [
+      stdenv.cc.cc.lib
+      icu
+      openssl
+      zlib
+      fontconfig
+      freetype
+    ];
 
     unpackPhase = ''
       dpkg-deb -x $src .
@@ -30,10 +39,6 @@ let
   rdm = pkgs.buildFHSEnv {
     name = "rdm";
     targetPkgs = pkgs: with pkgs; [
-      # .NET / CoreCLR runtime deps
-      stdenv.cc.cc.lib
-      dotnetCorePackages.runtime_9_0
-
       # GTK and rendering
       gtk3
       glib
@@ -78,6 +83,7 @@ let
       libpulseaudio
 
       # Misc native deps
+      stdenv.cc.cc.lib
       libsecret
       gnome-keyring
       dbus
