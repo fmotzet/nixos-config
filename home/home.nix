@@ -117,5 +117,8 @@
       enable = true;
     };
   };
+  home.packages = with pkgs; [
+    remmina
+  ];
 }
 
