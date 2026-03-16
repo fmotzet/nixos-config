@@ -116,9 +116,9 @@
     services.swww = {
       enable = true;
     };
+    services.remmina = {
+      enable = true;
+    };
   };
-  home.packages = with pkgs; [
-    remmina
-  ];
 }
 
