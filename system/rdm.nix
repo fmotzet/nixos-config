@@ -69,6 +69,8 @@ let
       xorg.libXcursor
       xorg.libXi
       xorg.libxcb
+      xorg.libICE
+      xorg.libSM
       xwayland
 
       # Mesa / GPU
