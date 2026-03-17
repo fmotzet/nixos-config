@@ -25,6 +25,7 @@
       ./waybar/waybar.nix
       ./hyprland.nix
       ./cursor.nix
+      ./git-personal.nix
     ];
     
     programs.bash = {
@@ -44,6 +45,7 @@
 
     programs.git = {
       enable = true;
+      userName = "fmotzet";
     };
     # Cava audio visualizer
     programs.cava = {
