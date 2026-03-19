@@ -26,6 +26,7 @@
       ./hyprland.nix
       ./cursor.nix
       ./keepassxc.nix
+      ./direnv.nix
     ] ++ (if builtins.pathExists ./git-personal.nix then [ ./git-personal.nix ] else []);
     
     programs.bash = {
