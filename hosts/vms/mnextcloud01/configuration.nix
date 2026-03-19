@@ -47,7 +47,7 @@
   #   chmod 400 /etc/nextcloud-admin-pass
   services.nextcloud = {
     enable = true;
-    package = pkgs.nextcloud30;
+    package = pkgs.nextcloud33;
     hostName = "mnextcloud01";
     datadir = "/mnt/nextcloud-data";
     https = false;
