@@ -60,6 +60,10 @@
     settings = {
       overwriteprotocol = "http";
       default_phone_region = "DE";
+      trusted_domains = [
+        "mnextcloud01"
+        "192.168.178.131"
+      ];
     };
   };
 
