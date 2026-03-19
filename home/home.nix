@@ -25,8 +25,7 @@
       ./waybar/waybar.nix
       ./hyprland.nix
       ./cursor.nix
-      ./git-personal.nix
-    ];
+    ] ++ (if builtins.pathExists ./git-personal.nix then [ ./git-personal.nix ] else []);
     
     programs.bash = {
       enable = true;
@@ -45,7 +44,7 @@
 
     programs.git = {
       enable = true;
-      userName = "fmotzet";
+      settings.user.name = "fmotzet";
     };
     # Cava audio visualizer
     programs.cava = {
