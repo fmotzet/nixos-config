@@ -2,7 +2,6 @@
 {
   imports = [
     ./home.nix
-    ./keepassxc.nix
   ];
 
   home-manager.users.felix = {
