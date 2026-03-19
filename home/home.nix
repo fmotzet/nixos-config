@@ -35,6 +35,7 @@
       historyFileSize = 200000;
       shellAliases = {
         rebuild = "sudo nixos-rebuild switch --flake /home/felix/nixos-config/";
+        nix-dev-init = "cp /home/felix/nixos-config/templates/rust/flake.nix . && echo 'use flake' > .envrc && git add flake.nix .envrc && direnv allow";
       };
       initExtra = ''
         if [ "$TERM" = "xterm-kitty" ]; then
