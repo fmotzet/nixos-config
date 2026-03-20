@@ -136,6 +136,7 @@
     strongswan
     teams-for-linux
     unzip
+    vscode
     vscodium
     vim
     wireguard-tools
@@ -164,7 +165,6 @@
       python-dotenv
       requests
       thttp
-      vscode
       wikipedia
     ]))
   ];
