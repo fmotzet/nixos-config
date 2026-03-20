@@ -136,7 +136,6 @@
     strongswan
     teams-for-linux
     unzip
-    vscode
     vscodium
     vim
     wireguard-tools
