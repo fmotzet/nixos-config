@@ -175,7 +175,7 @@
 
       # Window rules
       windowrulev2 = [
-        "opacity 0.9 0.9, class:^(code)$"
+        "opacity 0.95 0.9, class:^(code)$"
       ];
 
       # Layer rules
