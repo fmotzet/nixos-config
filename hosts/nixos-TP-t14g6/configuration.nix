@@ -164,27 +164,9 @@
       python-dotenv
       requests
       thttp
+      vscode
       wikipedia
     ]))
-    # Electron is dumb
-    # Example for VS Code
-    (symlinkJoin {
-      name = "vscode-wayland";
-      paths = [ vscode ];
-      buildInputs = [ makeWrapper ];
-      postBuild = ''
-        # Create a new wrapper script instead of modifying the existing binary
-        mkdir -p $out/bin
-        makeWrapper ${vscode}/bin/code $out/bin/code-wayland \
-          --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-        
-        # Create a new desktop file instead of modifying the existing one
-        mkdir -p $out/share/applications
-        cp ${vscode}/share/applications/code.desktop $out/share/applications/code-wayland.desktop
-        sed -i 's|Exec=.*|Exec=code-wayland %F|' $out/share/applications/code-wayland.desktop
-        sed -i 's|Name=.*|Name=VS Code (Wayland)|' $out/share/applications/code-wayland.desktop
-      '';
-    })
   ];
   # List fonts installed in system profile.
   fonts.packages = with pkgs; [
