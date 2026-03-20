@@ -55,5 +55,12 @@
         ./hosts/vms/mnextcloud01/configuration.nix
       ];
     };
+
+    nixosConfigurations.dawarich01 = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./hosts/vms/dawarich01/configuration.nix
+      ];
+    };
   };
 }
