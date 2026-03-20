@@ -9,7 +9,6 @@
       "git.autofetch" = true;
       "enableExtensionUpdateCheck" = true;
       "workbench.colorTheme" = "Default Dark Modern";
-      "window.opacity" = 0.9;
     };
     profiles.default.extensions = with pkgs.vscode-extensions; [
       anthropic.claude-code
