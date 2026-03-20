@@ -169,7 +169,6 @@
         "waybar"
         "dunst"
         "xrdb -load ~/.Xresources"
-        "kitty --detach btop"
         "swww-daemon"
         "sleep 1 && hyprctl reload"
       ];
