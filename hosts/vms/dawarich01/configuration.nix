@@ -110,7 +110,7 @@
           DATABASE_HOST = "host.docker.internal";
           DATABASE_PORT = "5432";
           DATABASE_NAME = "dawarich_production";
-          APPLICATION_HOSTS = "localhost";
+          APPLICATION_HOSTS = "localhost,192.168.178.62";
           APPLICATION_PROTOCOL = "http";
           TIME_ZONE = "Europe/Berlin";
           RAILS_LOG_TO_STDOUT = "true";
@@ -144,7 +144,7 @@
           DATABASE_HOST = "host.docker.internal";
           DATABASE_PORT = "5432";
           DATABASE_NAME = "dawarich_production";
-          APPLICATION_HOSTS = "localhost";
+          APPLICATION_HOSTS = "localhost,192.168.178.62";
           APPLICATION_PROTOCOL = "http";
           TIME_ZONE = "Europe/Berlin";
           RAILS_LOG_TO_STDOUT = "true";
