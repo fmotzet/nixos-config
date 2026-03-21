@@ -74,6 +74,7 @@
     settings = {
       dir = lib.mkForce "/mnt/dawarich-data/redis";
       save = [ "900 1" "300 10" ];
+      protected-mode = "no";
     };
   };
 
