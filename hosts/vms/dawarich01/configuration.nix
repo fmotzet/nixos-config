@@ -69,6 +69,7 @@
   services.redis.servers.dawarich = {
     enable = true;
     port = 6379;
+    bind = "127.0.0.1 172.17.0.1";
     settings = {
       dir = lib.mkForce "/mnt/dawarich-data/redis";
       save = [ "900 1" "300 10" ];
