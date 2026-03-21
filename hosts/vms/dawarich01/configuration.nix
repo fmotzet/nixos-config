@@ -70,7 +70,7 @@
     port = 6379;
     settings = {
       dir = lib.mkForce "/mnt/dawarich-data/redis";
-      save = "900 1 300 10";
+      save = [ "900 1" "300 10" ];
     };
   };
 
