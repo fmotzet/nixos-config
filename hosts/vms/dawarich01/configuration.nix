@@ -44,7 +44,7 @@
     enable = true;
     package = pkgs.postgresql_17;
     dataDir = "/mnt/dawarich-data/postgresql";
-    extraPlugins = ps: [ ps.postgis ];
+    extensions = ps: [ ps.postgis ];
     authentication = ''
       # Allow local connections without password (unix socket)
       local all all trust
