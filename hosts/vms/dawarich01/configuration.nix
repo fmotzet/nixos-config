@@ -110,7 +110,7 @@
           DATABASE_HOST = "host.docker.internal";
           DATABASE_PORT = "5432";
           DATABASE_NAME = "dawarich_production";
-          APPLICATION_HOSTS = "localhost,192.168.178.62";
+          APPLICATION_HOSTS = "localhost,192.168.178.62,dawarich01";
           APPLICATION_PROTOCOL = "http";
           TIME_ZONE = "Europe/Berlin";
           RAILS_LOG_TO_STDOUT = "true";
@@ -144,7 +144,7 @@
           DATABASE_HOST = "host.docker.internal";
           DATABASE_PORT = "5432";
           DATABASE_NAME = "dawarich_production";
-          APPLICATION_HOSTS = "localhost,192.168.178.62";
+          APPLICATION_HOSTS = "localhost,192.168.178.62,dawarich01";
           APPLICATION_PROTOCOL = "http";
           TIME_ZONE = "Europe/Berlin";
           RAILS_LOG_TO_STDOUT = "true";
@@ -169,8 +169,11 @@
     settings.PasswordAuthentication = true;
   };
 
-  # Open ports: 3000 (Dawarich UI), 5432 (PostgreSQL for containers)
+  # Open ports: 3000 (Dawarich UI)
   networking.firewall.allowedTCPPorts = [ 3000 ];
+
+  # Allow Docker containers to reach PostgreSQL and Redis on the host
+  networking.firewall.interfaces."docker0".allowedTCPPorts = [ 5432 6379 ];
 
   system.stateVersion = "25.11";
 }
