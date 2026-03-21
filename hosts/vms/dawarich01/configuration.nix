@@ -22,6 +22,7 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    git
     vim
     wget
     htop
