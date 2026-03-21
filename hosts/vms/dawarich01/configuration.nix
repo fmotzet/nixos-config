@@ -26,6 +26,7 @@
     wget
     htop
     nfs-utils
+    wireguard-tools
   ];
 
   # NFS mount for Dawarich data — removed idle-timeout/noauto
@@ -110,7 +111,7 @@
           DATABASE_HOST = "host.docker.internal";
           DATABASE_PORT = "5432";
           DATABASE_NAME = "dawarich_production";
-          APPLICATION_HOSTS = "localhost,192.168.178.62,dawarich01";
+          APPLICATION_HOSTS = "localhost,192.168.178.62,dawarich01,dawarich.motzfix.com";
           APPLICATION_PROTOCOL = "http";
           TIME_ZONE = "Europe/Berlin";
           RAILS_LOG_TO_STDOUT = "true";
@@ -144,7 +145,7 @@
           DATABASE_HOST = "host.docker.internal";
           DATABASE_PORT = "5432";
           DATABASE_NAME = "dawarich_production";
-          APPLICATION_HOSTS = "localhost,192.168.178.62,dawarich01";
+          APPLICATION_HOSTS = "localhost,192.168.178.62,dawarich01,dawarich.motzfix.com";
           APPLICATION_PROTOCOL = "http";
           TIME_ZONE = "Europe/Berlin";
           RAILS_LOG_TO_STDOUT = "true";
