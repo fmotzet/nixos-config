@@ -75,6 +75,7 @@
       dir = lib.mkForce "/mnt/dawarich-data/redis";
       save = [ "900 1" "300 10" ];
       protected-mode = "no";
+      stop-writes-on-bgsave-error = "no";
     };
   };
 
@@ -92,6 +93,7 @@
   systemd.services.postgresql.requires = [ "mnt-dawarich\\x2ddata.mount" ];
   systemd.services."redis-dawarich".after = [ "mnt-dawarich\\x2ddata.mount" ];
   systemd.services."redis-dawarich".requires = [ "mnt-dawarich\\x2ddata.mount" ];
+  systemd.services."redis-dawarich".serviceConfig.ReadWritePaths = [ "/mnt/dawarich-data/redis" ];
 
   # --- Docker for Dawarich app containers ---
   virtualisation.docker.enable = true;
