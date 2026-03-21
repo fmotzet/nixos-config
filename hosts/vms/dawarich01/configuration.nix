@@ -116,7 +116,6 @@
           RAILS_LOG_TO_STDOUT = "true";
           SELF_HOSTED = "true";
           STORE_GEODATA = "true";
-          DISABLE_REGISTRATION = "false";
         };
         extraOptions = [
           "--add-host=host.docker.internal:host-gateway"
@@ -151,7 +150,6 @@
           RAILS_LOG_TO_STDOUT = "true";
           SELF_HOSTED = "true";
           STORE_GEODATA = "true";
-          DISABLE_REGISTRATION = "false";
           BACKGROUND_PROCESSING_CONCURRENCY = "10";
         };
         extraOptions = [
