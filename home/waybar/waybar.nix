@@ -121,12 +121,12 @@ in
           on-click = "kitty sh -c \"sudo du -h --max-depth=1 / | less\"";
         };
         "hyprland/workspaces" = {
-          format = "{}";
+          format = "{name}";
           all-outputs = false;
           show-special = true;
         };
         "hyprland/window" = {
-          format = "{}";
+          format = "{title}";
         };
         image = {
           path = "/home/felix/.config/waybar/images/nixos-baw.png";
