@@ -121,12 +121,12 @@ in
           on-click = "kitty sh -c \"sudo du -h --max-depth=1 / | less\"";
         };
         "hyprland/workspaces" = {
-          format = "{name}";
+          format = "{}";
           all-outputs = false;
           show-special = true;
         };
         "hyprland/window" = {
-          format = "{title}";
+          format = "{}";
         };
         image = {
           path = "/home/felix/.config/waybar/images/nixos-baw.png";
@@ -135,10 +135,7 @@ in
         keyboard-state = {
           numlock = true;
           capslock = true;
-          format = {
-            numlock = "  Num {icon}";
-            capslock = "Caps {icon}";
-          };
+          format = "{name} {icon}";
           format-icons = {
             locked = "";
             unlocked = "";
