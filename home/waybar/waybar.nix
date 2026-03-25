@@ -75,7 +75,7 @@ in
           on-click = "bash ${toggle-bluetooth}";
           tooltip-format = "name: {controller_alias} connections: {num_connections}\naddr: {controller_address}";
           tooltip-format-connected = "name: {controller_alias} connections: {num_connections}\naddr: {controller_address}\nconnected to: {device_enumerate}";
-          tooltip-format-enumerate-connected = "name: {controller_alias} connections: {num_connections}\naddr: {controller_address}\nconnected to: {device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}\naddr: {device_address}";
         };
         cpu = {
           interval = 1;
