@@ -24,18 +24,18 @@ in
         gtk-layer-shell = true;
         modules-left = [
           "group/logo-user"
-          "clock"
           "group/hardware"
         ];
         modules-center = [
-          "hyprland/window"
+          # "hyprland/window"
+          "clock"
           "hyprland/workspaces"
         ];
         modules-right = [
           "cava"
           "tray"
-          "keyboard-state"
-          "bluetooth"
+          # "keyboard-state"
+          # "bluetooth"
           "battery"
           "group/backlight-and-slider"
           "group/audio"
