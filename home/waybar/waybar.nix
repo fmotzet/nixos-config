@@ -32,7 +32,7 @@ in
           "hyprland/workspaces"
         ];
         modules-right = [
-          "cava"
+          # "cava"
           "tray"
           # "keyboard-state"
           # "bluetooth"
