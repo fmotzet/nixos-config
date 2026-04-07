@@ -28,6 +28,7 @@
       ./keepassxc.nix
       ./direnv.nix
       ./vscode.nix
+      ./yazi.nix
     ] ++ (if builtins.pathExists ./git-personal.nix then [ ./git-personal.nix ] else []);
     
     programs.bash = {

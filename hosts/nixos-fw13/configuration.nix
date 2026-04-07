@@ -45,9 +45,6 @@
   # Enable hyprlock for PAM authentication
   programs.hyprlock.enable = true;
 
-  # Yazi File Manager
-  programs.yazi.enable = true;
-
   # Enable zsh as default user shell
   programs.zsh.enable = true;  
 

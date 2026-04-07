@@ -173,7 +173,6 @@
     wget
     wttrbar
     xorg.xrdb
-    yazi
     zsh
     # haskell
     ghc
