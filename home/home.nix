@@ -17,7 +17,7 @@
 
     imports = [
       ./rofi.nix
-      ./dunst.nix
+      ./swaync.nix
       ./hyprlock.nix
       ./fastfetch.nix
       ./kitty.nix

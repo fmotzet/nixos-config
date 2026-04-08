@@ -39,6 +39,7 @@ in
           "battery"
           "group/backlight-and-slider"
           "group/audio"
+          "custom/notification"
         ];
         "backlight/slider" = {
           min = 0;
@@ -188,6 +189,21 @@ in
           max-length = 8;
           on-click = "kitty btop";
           tooltip-format = "{temperatureC}°C\n{temperatureF}°F\n{temperatureK}°K";
+        };
+        "custom/notification" = {
+          tooltip = false;
+          format = "{icon}";
+          format-icons = {
+            notification = "󰂚";
+            none = "󰂜";
+            dnd-notification = "󰂛";
+            dnd-none = "󰪑";
+          };
+          return-type = "json";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
+          escape = true;
         };
         tray = {
           icon-size = 13;
@@ -587,6 +603,22 @@ in
           transition: all 0.3s ease;
       }
       #tray:hover {
+          background: rgba(255, 255, 255, 0.18);
+          border-color: rgba(255, 255, 255, 0.3);
+      }
+      #custom-notification {
+          background: rgba(255, 255, 255, 0.12);
+          border-radius: 12px;
+          padding: 4px 12px;
+          margin-left: 3px;
+          margin-right: 3px;
+          margin-top: 3px;
+          margin-bottom: 3px;
+          color: #ffffff;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          transition: all 0.3s ease;
+      }
+      #custom-notification:hover {
           background: rgba(255, 255, 255, 0.18);
           border-color: rgba(255, 255, 255, 0.3);
       }
