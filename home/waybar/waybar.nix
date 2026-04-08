@@ -38,7 +38,8 @@ in
           # "bluetooth"
           "battery"
           "group/backlight-and-slider"
-          "group/audio"
+          "group/audio-output-and-slider"
+          "group/audio-input-and-slider"
           "custom/notification"
         ];
         "backlight/slider" = {
@@ -155,7 +156,7 @@ in
           tooltip-format = "ip: {ipaddr}\nssid: {essid}\nsig strength: {signalStrength}\nfreq: {frequency}\nup: {bandwidthUpBytes}\ndown: {bandwidthDownBytes}";
         };
         pulseaudio = {
-          format = "{icon} {volume}%";
+          format = "{icon}";
           format-muted = "  Muted";
           on-click = "amixer set Master toggle";
           on-scroll-up = "amixer set Master 1%+";
@@ -173,8 +174,8 @@ in
         };
         "pulseaudio#microphone" = {
           format = "{format_source}";
-          format-source = " {volume}%";
-          format-source-muted = " Muted";
+          format-source = "";
+          format-source-muted = "";
           on-click = "amixer set Capture toggle";
           on-scroll-up = "amixer set Capture 1%+";
           on-scroll-down = "amixer set Capture 1%-";
@@ -213,12 +214,36 @@ in
           interval = 1;
           format = "{user}; uptime: {work_H}:{work_M}:{work_S}";
         };
-        "group/audio" = {
+        "pulseaudio/slider" = {
+          min = 0;
+          max = 100;
+          orientation = "horizontal";
+        };
+        "pulseaudio/slider#microphone" = {
+          min = 0;
+          max = 100;
+          orientation = "horizontal";
+          target = "input";
+        };
+        "group/audio-output-and-slider" = {
           orientation = "horizontal";
           modules = [
             "pulseaudio"
-            "pulseaudio#microphone"
+            "pulseaudio/slider"
           ];
+          drawer = {
+            transition-duration = 500;
+          };
+        };
+        "group/audio-input-and-slider" = {
+          orientation = "horizontal";
+          modules = [
+            "pulseaudio#microphone"
+            "pulseaudio/slider#microphone"
+          ];
+          drawer = {
+            transition-duration = 500;
+          };
         };
         "group/backlight-and-slider" = {
           orientation = "horizontal";
@@ -541,6 +566,37 @@ in
       #network:hover {
           background: rgba(255, 255, 255, 0.18);
           border-color: rgba(255, 255, 255, 0.3);
+      }
+      #pulseaudio-slider {
+          background: rgba(255, 255, 255, 0.12);
+          border-radius: 12px;
+          padding: 4px 12px;
+          margin-left: 3px;
+          margin-right: 3px;
+          margin-top: 3px;
+          margin-bottom: 3px;
+          border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      #pulseaudio-slider slider {
+          min-height: 0px;
+          min-width: 0px;
+          opacity: 0;
+          background-image: none;
+          border: none;
+          box-shadow: none;
+      }
+      #pulseaudio-slider trough {
+          min-height: 6px;
+          min-width: 60px;
+          border-radius: 10px;
+          background: rgba(0, 0, 0, 0.3);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      #pulseaudio-slider highlight {
+          min-width: 6px;
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.8);
+          border: none;
       }
       #pulseaudio {
           background: rgba(255, 255, 255, 0.12);
