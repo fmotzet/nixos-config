@@ -157,7 +157,7 @@ in
         };
         pulseaudio = {
           format = "{icon}";
-          format-muted = "  Muted";
+          format-muted = "";
           on-click = "amixer set Master toggle";
           on-scroll-up = "amixer set Master 1%+";
           on-scroll-down = "amixer set Master 1%-";
