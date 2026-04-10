@@ -186,6 +186,12 @@
         "ignorezero, waybar"
         "blurpopups, waybar"
         "ignorealpha 0.2, waybar"
+        "blur, swaync-control-center"
+        "ignorezero, swaync-control-center"
+        "ignorealpha 0.2, swaync-control-center"
+        "blur, swaync-notification-window"
+        "ignorezero, swaync-notification-window"
+        "ignorealpha 0.2, swaync-notification-window"
       ];
     };
   };

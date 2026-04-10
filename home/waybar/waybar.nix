@@ -678,6 +678,10 @@ in
           background: rgba(255, 255, 255, 0.18);
           border-color: rgba(255, 255, 255, 0.3);
       }
+      #custom-notification:active {
+          background: rgba(255, 255, 255, 0.12);
+          border-color: rgba(255, 255, 255, 0.2);
+      }
       #user {
           background: rgba(255, 255, 255, 0.12);
           border-radius: 12px;

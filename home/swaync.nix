@@ -49,7 +49,7 @@
       }
 
       .control-center {
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.12);
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.2);
         color: #ffffff;
