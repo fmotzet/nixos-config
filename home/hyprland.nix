@@ -5,8 +5,7 @@
     package = null; # managed by NixOS module programs.hyprland.enable
     settings = {
       # Monitor (set per-host in home-<host>.nix)
-
-      # Environment variables
+ 
       env = [
         "XCURSOR_SIZE,36"
         "XCURSOR_THEME,rose-pine-hyprcursor"
@@ -14,7 +13,6 @@
         "HYPRCURSOR_SIZE,36"
       ];
 
-      # Input
       input = {
         kb_layout = "de";
         follow_mouse = 1;
@@ -24,7 +22,6 @@
         sensitivity = 0;
       };
 
-      # General
       general = {
         gaps_in = 3;
         gaps_out = 6;
@@ -38,7 +35,6 @@
         allow_tearing = false;
       };
 
-      # Decoration
       decoration = {
         rounding = 12;
         blur = {
@@ -49,7 +45,6 @@
         };
       };
 
-      # Animations
       animations = {
         enabled = true;
         bezier = [
@@ -66,28 +61,23 @@
         ];
       };
 
-      # Cursor
       cursor = {
         no_hardware_cursors = 0;
         enable_hyprcursor = true;
         persistent_warps = true;
       };
 
-      # Layout
       dwindle = {
         pseudotile = true;
         preserve_split = true;
       };
 
-      # Misc
       misc = {
         force_default_wallpaper = -1;
       };
 
-      # Variables
       "$mainMod" = "SUPER";
 
-      # Keybinds
       bind = [
         "$mainMod, Q, exec, kitty"
         "$mainMod, W, exec, kitty yazi"
@@ -167,18 +157,16 @@
         "nm-applet --indicator"
         "blueman-applet"
         "waybar"
-        "dunst"
+        "swaync"
         "xrdb -load ~/.Xresources"
         "swww-daemon"
         "sleep 1 && hyprctl reload"
       ];
 
-      # Window rules
       windowrulev2 = [
         "opacity 0.95 0.9, class:^(code)$"
       ];
 
-      # Layer rules
       layerrule = [
         "blur, rofi"
         "ignorezero, rofi"
@@ -188,10 +176,8 @@
         "ignorealpha 0.2, waybar"
         "blur, swaync-control-center"
         "ignorezero, swaync-control-center"
-        "ignorealpha 0.2, swaync-control-center"
         "blur, swaync-notification-window"
         "ignorezero, swaync-notification-window"
-        "ignorealpha 0.2, swaync-notification-window"
       ];
     };
   };
