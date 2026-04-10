@@ -100,6 +100,7 @@
     noto-fonts-color-emoji
     openvpn
     unzip
+    spotify
     vim
     wireguard-tools
     wireshark
