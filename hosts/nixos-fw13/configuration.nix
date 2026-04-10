@@ -60,6 +60,9 @@
   # Enable Mullvad VPN
   services.mullvad-vpn.enable = true;
 
+  # Enable Upower for enumerating power devices
+  services.upower.enable = true;
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
