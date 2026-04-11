@@ -178,13 +178,16 @@
         "ignorezero, swaync-control-center"
         "blur, swaync-notification-window"
         "ignorezero, swaync-notification-window"
-        "blur, match:namespace(noctalia-bar-content-.*)"
-        "ignorezero, match:namespace(noctalia-bar-content-.*)"
-        "blur, match:namespace(noctalia-dock-.*)"
-        "ignorezero, match:namespace(noctalia-dock-.*)"
-        "blur, match:namespace(noctalia-notifications-.*)"
-        "ignorezero, match:namespace(noctalia-notifications-.*)"
       ];
     };
+    extraConfig = ''
+      layerrule {
+        name = noctalia
+        match:namespace = noctalia-background-.*$
+        blur = true
+        blur_popups = true
+        ignore_alpha = 0.05
+      }
+    '';
   };
 }
