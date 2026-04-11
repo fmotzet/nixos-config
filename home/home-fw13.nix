@@ -7,7 +7,7 @@
   home-manager.users.felix = {
     imports = [
       noctalia.homeModules.default
-      ./noctalia.nix
+      ./noctalia/noctalia.nix
     ];
 
     wayland.windowManager.hyprland.settings = {

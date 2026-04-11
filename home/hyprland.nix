@@ -178,6 +178,8 @@
         "ignorezero, swaync-control-center"
         "blur, swaync-notification-window"
         "ignorezero, swaync-notification-window"
+        "blur, match:namespace noctalia-.*"
+        "ignorezero, match:namespace noctalia-.*"
       ];
     };
   };
