@@ -609,8 +609,6 @@ in
           color: #ffffff;
           border: 1px solid rgba(255, 255, 255, 0.2);
           transition: all 0.3s ease;
-          min-width: 20px;
-          text-align: center;
       }
       #pulseaudio:hover {
           background: rgba(255, 255, 255, 0.18);
