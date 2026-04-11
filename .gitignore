@@ -7,3 +7,5 @@ result-*
 
 # Personal git config (emails, internal URLs)
 home/git-personal.nix
+
+# Dont add CLAUDE

@@ -33,6 +33,7 @@
     };
     nixosConfigurations.nixos-fw13 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit noctalia; };
       modules = [
         ./hosts/nixos-fw13/configuration.nix
         home-manager.nixosModules.home-manager
