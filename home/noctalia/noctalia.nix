@@ -10,7 +10,7 @@
         capsuleOpacity = 0.12;
       };
       general = {
-        avatarImage = ./nixos-baw.png;
+        avatarImage = ./blowing-bubble.jpg;
         enableBlurBehind = true;
         dimmerOpacity = 0.2;
       };
