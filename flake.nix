@@ -8,9 +8,13 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
-  outputs = { nixpkgs, nixpkgs-unstable, home-manager, ... }: 
+  outputs = { nixpkgs, nixpkgs-unstable, home-manager, noctalia, ... }: 
     let
       pkgs-unstable = import nixpkgs-unstable {
         system = "x86_64-linux";
@@ -29,12 +33,14 @@
     };
     nixosConfigurations.nixos-fw13 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit noctalia; };
       modules = [
         ./hosts/nixos-fw13/configuration.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
         }
+        ./modules/noctalia.nix
       ];
     };
     nixosConfigurations.nixos-TP-t14g6 = nixpkgs.lib.nixosSystem {
