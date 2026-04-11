@@ -33,14 +33,12 @@
     };
     nixosConfigurations.nixos-fw13 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit noctalia; };
       modules = [
         ./hosts/nixos-fw13/configuration.nix
         home-manager.nixosModules.home-manager
         {
-          home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
+          home-manager.extraSpecialArgs = { inherit pkgs-unstable noctalia; };
         }
-        ./modules/noctalia.nix
       ];
     };
     nixosConfigurations.nixos-TP-t14g6 = nixpkgs.lib.nixosSystem {
