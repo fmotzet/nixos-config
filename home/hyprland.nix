@@ -180,14 +180,5 @@
         "ignorezero, swaync-notification-window"
       ];
     };
-    extraConfig = ''
-      layerrule {
-        name = noctalia
-        match:namespace = noctalia-background-.*$
-        blur = true
-        blur_popups = true
-        ignore_alpha = 0.05
-      }
-    '';
   };
 }
