@@ -5,6 +5,10 @@
   ];
 
   home-manager.users.felix = {
+    programs.bash.shellAliases = {
+      tls = "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger status -m";
+    };
+
     wayland.windowManager.hyprland.settings = {
       monitor = [
         "eDP-1,1920x1200@60,0x0,1"
