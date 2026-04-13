@@ -85,11 +85,11 @@
   # Power & thermal management
   services.power-profiles-daemon.enable = true;
 
-  # AMD pstate EPP + GPU + boost: going for quiet and cool kind of
+  # AMD pstate EPP + GPU + boost: performance mode
   systemd.tmpfiles.rules = [
-    "w /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - balance_power"
-    "w /sys/devices/system/cpu/cpufreq/boost - - - - 0"
-    "w /sys/class/drm/card1/device/power_dpm_force_performance_level - - - - low"
+    "w /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - performance"
+    "w /sys/devices/system/cpu/cpufreq/boost - - - - 1"
+    "w /sys/class/drm/card1/device/power_dpm_force_performance_level - - - - auto"
   ];
 
   # Enable thinkpad_acpi fan monitoring
