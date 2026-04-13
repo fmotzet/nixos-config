@@ -6,7 +6,8 @@
 
   home-manager.users.felix = {
     programs.bash.shellAliases = {
-      tls = "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger status -m";
+      tlstatus = "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger status -m";
+      tlstop = "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger stop";
     };
 
     wayland.windowManager.hyprland.settings = {
