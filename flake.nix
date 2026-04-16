@@ -44,6 +44,7 @@
     };
     nixosConfigurations.nixos-TP-t14g6 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit noctalia; };
       modules = [
         ./hosts/nixos-TP-t14g6/configuration.nix
         home-manager.nixosModules.home-manager
