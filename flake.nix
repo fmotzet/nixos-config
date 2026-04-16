@@ -48,7 +48,7 @@
         ./hosts/nixos-TP-t14g6/configuration.nix
         home-manager.nixosModules.home-manager
         {
-          home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
+          home-manager.extraSpecialArgs = { inherit pkgs-unstable noctalia; };
         }
       ];
     };

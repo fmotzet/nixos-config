@@ -1,4 +1,4 @@
-{ ... }:
+{ noctalia, ... }:
 {
   # If we have legacy, non generated files, rename them to bak instead of failing
   home-manager.backupFileExtension = "bak";

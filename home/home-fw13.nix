@@ -1,4 +1,4 @@
-{ noctalia, ... }:
+{ ... }:
 {
   imports = [
     ./home.nix
