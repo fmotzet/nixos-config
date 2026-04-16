@@ -28,6 +28,8 @@
       ./keepassxc.nix
       ./direnv.nix
       ./vscode.nix
+      noctalia.homeModules.default
+      ./noctalia/noctalia.nix
       ./yazi.nix
     ] ++ (if builtins.pathExists ./git-personal.nix then [ ./git-personal.nix ] else []);
     
