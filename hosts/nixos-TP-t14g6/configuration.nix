@@ -133,6 +133,7 @@
     nfs-utils
     noto-fonts-color-emoji
     openvpn
+    spotify
     strongswan
     teams-for-linux
     unzip
