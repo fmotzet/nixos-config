@@ -21,20 +21,7 @@
 
   networking.hostName = "nixos-TP-t14g6";
   networking.wireless.enable = false;
-  networking.networkmanager = {
-    enable = true;
-    dns = "dnsmasq";
-  };
-
-  services.dnsmasq = {
-    enable = true;
-    settings = {
-      server = [
-        "/boerse-go.de/10.20.36.1"
-        "/stock3.com/10.20.36.1"
-      ];
-    };
-  };
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
