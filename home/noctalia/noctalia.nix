@@ -9,18 +9,18 @@
         backgroundOpacity = 0.12;
         capsuleOpacity = 0.12;
       };
-      general = {
-        avatarImage = ./blowing-bubble.jpg;
-        enableBlurBehind = true;
-        dimmerOpacity = 0.2;
-      };
-      ui = {
-        panelBackgroundOpacity = 0.12;
-        translucentWidgets = true;
-      };
-      notifications.backgroundOpacity = 0.12;
-      osd.backgroundOpacity = 0.12;
-      dock.backgroundOpacity = 0.12;
+      # general = {
+      #   avatarImage = ./blowing-bubble.jpg;
+      #   enableBlurBehind = true;
+      #   dimmerOpacity = 0.2;
+      # };
+      # ui = {
+      #   panelBackgroundOpacity = 0.12;
+      #   translucentWidgets = true;
+      # };
+      # notifications.backgroundOpacity = 0.12;
+      # osd.backgroundOpacity = 0.12;
+      # dock.backgroundOpacity = 0.12;
     };
     # Frosted glass palette
     # "m*" = background/accent colors, "mOn*" = foreground/text on top
