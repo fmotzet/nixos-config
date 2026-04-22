@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 {
   imports =
     [
@@ -56,7 +56,7 @@
     enable = true;
     settings = {
       video = {
-        device_path = "/dev/video2";  # you'll need to find the right one
+        device_path = "/dev/video2";
         dark_threshold = 60;
         certainty = 3.5;
       };
@@ -116,6 +116,13 @@
 
 
   nixpkgs.config.allowUnfree = true;
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      howdy = pkgs-unstable.howdy;
+      linux-enable-ir-emitter = pkgs-unstable.linux-enable-ir-emitter;
+    })
+  ];
 
   services.fprintd.enable = true;
 
