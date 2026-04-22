@@ -50,6 +50,18 @@
   # Enable Docker
   virtualisation.docker.enable = true;
   users.users.felix.extraGroups = [ "docker" "wireshark" ];
+
+  # Enable howdy face recognition
+  services.howdy = {
+    enable = true;
+    settings = {
+      video = {
+        device_path = "/dev/video2";  # you'll need to find the right one
+        dark_threshold = 60;
+        certainty = 3.5;
+      };
+    };
+  };
  
   # Enable CUPS to print documents.
   services.printing = {
