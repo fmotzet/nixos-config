@@ -220,8 +220,8 @@
         telemetryEnabled = false;
         enableLockScreenCountdown = true;
         lockScreenCountdownDuration = 10000;
-        autoStartAuth = false;
-        allowPasswordWithFprintd = false;
+        autoStartAuth = true;
+        allowPasswordWithFprintd = true;
         clockStyle = "custom";
         clockFormat = "hh mm";
         passwordChars = true;
