@@ -52,16 +52,16 @@
   users.users.felix.extraGroups = [ "docker" "wireshark" ];
 
   # Enable howdy face recognition
-  services.howdy = {
-    enable = true;
-    settings = {
-      video = {
-        device_path = "/dev/video2";
-        dark_threshold = 60;
-        certainty = 3.5;
-      };
-    };
-  };
+  # services.howdy = {
+  #   enable = true;
+  #   settings = {
+  #     video = {
+  #       device_path = "/dev/video2";
+  #       dark_threshold = 60;
+  #       certainty = 3.5;
+  #     };
+  #   };
+  # };
  
   # Enable CUPS to print documents.
   services.printing = {
