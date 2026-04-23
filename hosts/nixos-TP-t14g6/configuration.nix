@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, pkgs-unstable, nixpkgs-unstable, ... }:
 {
   imports =
     [
@@ -93,6 +93,9 @@
 
   # Enable the Mullvad background service
   services.mullvad-vpn.enable = true;
+
+  # Enable fwupdate service for firmware updates
+  services.fwupd.enable = true;
 
   # Power & thermal management
   services.power-profiles-daemon.enable = true;
