@@ -9,6 +9,7 @@
       tlstatus = "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger status -m";
       tlstop = "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger stop";
       tlbreak = "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger break";
+      fixdns = "sudo bash -c 'echo -e "nameserver 10.20.36.1\n$(cat /etc/resolv.conf)" > /etc/resolv.conf'"
     };
 
     wayland.windowManager.hyprland.settings = {
