@@ -100,6 +100,9 @@
   # Power & thermal management
   services.power-profiles-daemon.enable = true;
 
+  # Enable Upower for enumerating power devices
+  services.upower.enable = true;
+
   # AMD pstate EPP + GPU + boost: performance mode
   systemd.tmpfiles.rules = [
     "w /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - performance"
