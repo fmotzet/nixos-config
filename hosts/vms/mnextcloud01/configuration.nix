@@ -48,7 +48,23 @@
   services.nextcloud = {
     enable = true;
     package = pkgs.nextcloud33;
-    hostName =ls 
+    hostName = "mnextcloud01";
+    datadir = "/mnt/nextcloud-data";
+    https = false;
+    configureRedis = true;
+    database.createLocally = true;
+    config = {
+      dbtype = "pgsql";
+      adminpassFile = "/etc/nextcloud-admin-pass";
+    };
+    settings = {
+      overwriteprotocol = "http";
+      default_phone_region = "DE";
+      trusted_domains = [
+        "mnextcloud01"
+        "192.168.178.131"
+      ];
+    };
   };
 
   # Open HTTP port
