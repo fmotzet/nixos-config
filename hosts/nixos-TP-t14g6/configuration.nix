@@ -18,6 +18,7 @@
   #  "kernel.printk" = "3 3 3 3";
   #};
   #boot.kernelParams = [ "quiet" "loglevel=3" ];
+  boot.blacklistedKernelModules = [ "algif_aead" ];
 
   networking.hostName = "nixos-TP-t14g6";
   networking.wireless.enable = false;
