@@ -88,9 +88,11 @@
         "$mainMod, R, exec, yazi"
         "$mainMod, P, pseudo,"
         "$mainMod, J, togglesplit,"
-        "$mainMod, S, exec, noctalia-shell ipc call launcher toggle"
+        #"$mainMod, S, exec, noctalia-shell ipc call launcher toggle"
+        "$mainMod, S, exec, rofi -show drun -show-icons"
         # Lock screen
-        "$mainMod, L, exec, noctalia-shell ipc call lockScreen lock"
+        #"$mainMod, L, exec, noctalia-shell ipc call lockScreen lock"
+        "$mainMod, L, exec, hyprlock --grace 5"
         # Shutdown
         "$mainMod SHIFT, k, exec, shutdown now"
         # Screenshot
@@ -156,8 +158,11 @@
       exec-once = [
         "nm-applet --indicator"
         "blueman-applet"
+        "waybar"
+        "swaync"
         "xrdb -load ~/.Xresources"
-        "noctalia-shell"
+        # "noctalia-shell"
+        "swww-daemon"
         "sleep 1 && hyprctl reload"
       ];
 
