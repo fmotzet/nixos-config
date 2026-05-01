@@ -68,5 +68,13 @@
         ./hosts/vms/dawarich01/configuration.nix
       ];
     };
+
+    # HTPC
+    nixosConfigurations.mhtpc01 = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./hosts/mhtpc01/configuration.nix
+      ];
+    };
   };
 }
