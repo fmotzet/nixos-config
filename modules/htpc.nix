@@ -26,7 +26,7 @@
     extraPackages = with pkgs; [
       # VA-API driver for AMD (RADV handles Vulkan automatically via Mesa)
       libvdpau-va-gl
-      vaapiVdpau
+      libva-vdpau-driver
     ];
   };
 
