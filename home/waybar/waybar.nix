@@ -154,6 +154,7 @@ in
         network = {
           interval = 30;
           tooltip-format = "ip: {ipaddr}\nssid: {essid}\nsig strength: {signalStrength}\nfreq: {frequency}\nup: {bandwidthUpBytes}\ndown: {bandwidthDownBytes}";
+          on-click = "ip a";
         };
         pulseaudio = {
           format = "{icon}";
