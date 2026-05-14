@@ -100,10 +100,10 @@
   # --- Lid Switch ---
   # The lid/screen assembly is removed, so the lid sensor state is undefined.
   # Ignore it to prevent unexpected suspend/shutdown.
-  services.logind = {
-    lidSwitch = "ignore";
-    lidSwitchExternalPower = "ignore";
-    lidSwitchDocked = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
   };
 
   # --- Prevent Sleep/Suspend ---
