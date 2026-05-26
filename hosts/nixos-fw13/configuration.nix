@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 
 {
   imports =
@@ -102,6 +102,7 @@
     nnn
     noto-fonts-color-emoji
     openvpn
+    pkgs-unstable.ratty
     unzip
     spotify
     vim
