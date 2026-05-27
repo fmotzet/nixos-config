@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixpkgs-unstable, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 {
   imports =
     [
@@ -160,6 +160,7 @@
     nfs-utils
     noto-fonts-color-emoji
     openvpn
+    pkgs-unstable.ratty
     spotify
     strongswan
     teams-for-linux
