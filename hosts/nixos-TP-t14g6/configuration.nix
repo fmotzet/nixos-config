@@ -125,12 +125,12 @@
 
   nixpkgs.config.allowUnfree = true;
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      howdy = pkgs-unstable.howdy;
-      linux-enable-ir-emitter = pkgs-unstable.linux-enable-ir-emitter;
-    })
-  ];
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     howdy = pkgs-unstable.howdy;
+  #     linux-enable-ir-emitter = pkgs-unstable.linux-enable-ir-emitter;
+  #   })
+  # ];
 
   services.fprintd.enable = true;
 
