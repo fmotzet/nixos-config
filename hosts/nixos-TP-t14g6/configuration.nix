@@ -22,7 +22,6 @@
   boot.blacklistedKernelModules = [ "algif_aead" ];
 
   networking.hostName = "nixos-TP-t14g6";
-  networking.wireless.enable = false;
   networking.networkmanager.enable = true;
 
   # Set your time zone.

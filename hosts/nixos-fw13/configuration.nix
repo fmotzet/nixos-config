@@ -19,7 +19,6 @@
   #boot.kernelParams = [ "quiet" "loglevel=3" ];
 
   networking.hostName = "nixos-fw13";
-  networking.wireless.enable = false;
   networking.networkmanager.enable = true; 
 
   # Set your time zone.

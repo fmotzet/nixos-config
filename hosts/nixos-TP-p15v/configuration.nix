@@ -19,7 +19,6 @@
   #boot.kernelParams = [ "quiet" "loglevel=3" ];
 
   networking.hostName = "nixos-TP-p15v";
-  networking.wireless.enable = false;
   networking.networkmanager = {
     enable = true;
     # Tell NetworkManager to use dnsmasq for handling DNS.
