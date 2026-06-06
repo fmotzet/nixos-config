@@ -69,7 +69,8 @@ in
         };
 
         dwindle = {
-          pseudotile = true;
+          # pseudotile is no longer a dwindle config key in Hyprland 0.55+
+          # (use the per-window hl.dsp.window.pseudo() dispatcher — see SUPER + P)
           preserve_split = true;
         };
 
@@ -159,7 +160,7 @@ in
         { _args = [ "SUPER + SHIFT + 9" (mkLuaInline "hl.dsp.window.move({ workspace = 9 })") ]; }
         { _args = [ "SUPER + SHIFT + 0" (mkLuaInline "hl.dsp.window.move({ workspace = 10 })") ]; }
         # Special workspace (scratchpad)
-        { _args = [ "SUPER + ü" (mkLuaInline ''hl.dsp.workspace.toggle_special("magic")'') ]; }
+        { _args = [ "SUPER + udiaeresis" (mkLuaInline ''hl.dsp.workspace.toggle_special("magic")'') ]; }
         # Scroll through workspaces
         { _args = [ "SUPER + mouse_down" (mkLuaInline ''hl.dsp.focus({ workspace = "e+1" })'') ]; }
         { _args = [ "SUPER + mouse_up" (mkLuaInline ''hl.dsp.focus({ workspace = "e-1" })'') ]; }
