@@ -69,8 +69,6 @@ in
         };
 
         dwindle = {
-          # pseudotile is no longer a dwindle config key in Hyprland 0.55+
-          # (use the per-window hl.dsp.window.pseudo() dispatcher — see SUPER + P)
           preserve_split = true;
         };
 
@@ -114,9 +112,7 @@ in
         { _args = [ "SUPER + R" (mkLuaInline ''hl.dsp.exec_cmd("yazi")'') ]; }
         { _args = [ "SUPER + P" (mkLuaInline "hl.dsp.window.pseudo()") ]; }
         { _args = [ "SUPER + J" (mkLuaInline ''hl.dsp.layout("togglesplit")'') ]; }
-        # "SUPER + S" noctalia launcher (commented in original): hl.dsp.exec_cmd("noctalia-shell ipc call launcher toggle")
         { _args = [ "SUPER + S" (mkLuaInline ''hl.dsp.exec_cmd("rofi -show drun -show-icons")'') ]; }
-        # Lock screen ("SUPER + L" noctalia lock in original): hl.dsp.exec_cmd("noctalia-shell ipc call lockScreen lock")
         { _args = [ "SUPER + L" (mkLuaInline ''hl.dsp.exec_cmd("hyprlock --grace 5")'') ]; }
         # Shutdown
         { _args = [ "SUPER + SHIFT + K" (mkLuaInline ''hl.dsp.exec_cmd("shutdown now")'') ]; }
