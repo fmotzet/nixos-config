@@ -1,4 +1,7 @@
-{ ... }:
+{ lib, ... }:
+let
+  inherit (lib.generators) mkLuaInline;
+in
 {
   imports = [
     ./home.nix
@@ -14,13 +17,21 @@
 
     wayland.windowManager.hyprland.settings = {
       monitor = [
-        "eDP-1,1920x1200@60,0x0,1"
-        ",preferred,auto,1"
+        { output = "eDP-1"; mode = "1920x1200@60"; position = "0x0"; scale = 1; }
+        { output = ""; mode = "preferred"; position = "auto"; scale = 1; }
       ];
-      exec-once = [
-        "brave https://zabbix.muc.boerse-go.de/ https://outlook.office.com/ https://stock3.atlassian.net/jira/your-work https://monkeytype.com/ https://open.spotify.com/ http://bgtop.dc1.boerse-go.de/snapshots.php?autoRefresh=60&limit=500"
-        "teams-for-linux"
-        "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger start"
+      on = [
+        {
+          _args = [
+            "hyprland.start"
+            (mkLuaInline ''
+              function()
+                hl.exec_cmd("brave https://zabbix.muc.boerse-go.de/ https://outlook.office.com/ https://stock3.atlassian.net/jira/your-work https://monkeytype.com/ https://open.spotify.com/ http://bgtop.dc1.boerse-go.de/snapshots.php?autoRefresh=60&limit=500")
+                hl.exec_cmd("teams-for-linux")
+                hl.exec_cmd("TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger start")
+              end'')
+          ];
+        }
       ];
     };
   };

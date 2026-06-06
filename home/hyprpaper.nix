@@ -1,5 +1,5 @@
 { ... }:
-# CURRENTLY DISABLED, USING SWWW INSTEAD
+# CURRENTLY DISABLED, USING AWWW INSTEAD
 # wallpaper engine 
 {
   services.hyprpaper = {

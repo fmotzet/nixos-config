@@ -1,189 +1,208 @@
-{ ... }:
+{ lib, ... }:
+let
+  inherit (lib.generators) mkLuaInline;
+in
 {
   wayland.windowManager.hyprland = {
     enable = true;
     package = null; # managed by NixOS module programs.hyprland.enable
+    configType = "lua";
     settings = {
       # Monitor (set per-host in home-<host>.nix)
- 
+
       env = [
-        "XCURSOR_SIZE,36"
-        "XCURSOR_THEME,rose-pine-hyprcursor"
-        "HYPRCURSOR_THEME,rose-pine-hyprcursor"
-        "HYPRCURSOR_SIZE,36"
+        { _args = [ "XCURSOR_SIZE" "36" ]; }
+        { _args = [ "XCURSOR_THEME" "rose-pine-hyprcursor" ]; }
+        { _args = [ "HYPRCURSOR_THEME" "rose-pine-hyprcursor" ]; }
+        { _args = [ "HYPRCURSOR_SIZE" "36" ]; }
       ];
 
-      input = {
-        kb_layout = "de";
-        follow_mouse = 1;
-        touchpad = {
-          natural_scroll = false;
+      config = {
+        input = {
+          kb_layout = "de";
+          follow_mouse = 1;
+          touchpad = {
+            natural_scroll = false;
+          };
+          sensitivity = 0;
         };
-        sensitivity = 0;
-      };
 
-      general = {
-        gaps_in = 3;
-        gaps_out = 6;
-        border_size = 1;
-        "col.active_border" = "rgba(ffffffaa) rgba(ffffff66) 45deg";
-        "col.inactive_border" = "rgba(ffffff33) rgba(ffffff22) 45deg";
-        layout = "dwindle";
-        resize_on_border = true;
-        extend_border_grab_area = 15;
-        hover_icon_on_border = true;
-        allow_tearing = false;
-      };
+        general = {
+          gaps_in = 3;
+          gaps_out = 6;
+          border_size = 1;
+          col = {
+            active_border = {
+              colors = [ "rgba(ffffffaa)" "rgba(ffffff66)" ];
+              angle = 45;
+            };
+            inactive_border = {
+              colors = [ "rgba(ffffff33)" "rgba(ffffff22)" ];
+              angle = 45;
+            };
+          };
+          layout = "dwindle";
+          resize_on_border = true;
+          extend_border_grab_area = 15;
+          hover_icon_on_border = true;
+          allow_tearing = false;
+        };
 
-      decoration = {
-        rounding = 12;
-        blur = {
+        decoration = {
+          rounding = 12;
+          blur = {
+            enabled = true;
+            size = 1;
+            passes = 2;
+            new_optimizations = true;
+          };
+        };
+
+        animations = {
           enabled = true;
-          size = 1;
-          passes = 2;
-          new_optimizations = true;
+        };
+
+        cursor = {
+          no_hardware_cursors = 0;
+          enable_hyprcursor = true;
+          persistent_warps = true;
+        };
+
+        dwindle = {
+          pseudotile = true;
+          preserve_split = true;
+        };
+
+        misc = {
+          force_default_wallpaper = -1;
         };
       };
 
-      animations = {
-        enabled = true;
-        bezier = [
-          "myBezier, 0.05, 0.9, 0.1, 1.05"
-          "smooth, 0.25, 0.1, 0.25, 1"
-        ];
-        animation = [
-          "windows, 1, 5, smooth, slide"
-          "windowsOut, 1, 5, smooth, slide"
-          "border, 1, 10, smooth"
-          "borderangle, 1, 100, smooth, loop"
-          "fade, 1, 5, smooth"
-          "workspaces, 1, 5, smooth, slidefadevert"
-        ];
-      };
+      # Bezier curves (hl.curve), referenced by name in animations below
+      curve = [
+        {
+          _args = [
+            "myBezier"
+            { type = "bezier"; points = [ [ 0.05 0.9 ] [ 0.1 1.05 ] ]; }
+          ];
+        }
+        {
+          _args = [
+            "smooth"
+            { type = "bezier"; points = [ [ 0.25 0.1 ] [ 0.25 1 ] ]; }
+          ];
+        }
+      ];
 
-      cursor = {
-        no_hardware_cursors = 0;
-        enable_hyprcursor = true;
-        persistent_warps = true;
-      };
-
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
-      };
-
-      misc = {
-        force_default_wallpaper = -1;
-      };
-
-      "$mainMod" = "SUPER";
+      animation = [
+        { leaf = "windows"; enabled = true; speed = 5; bezier = "smooth"; style = "slide"; }
+        { leaf = "windowsOut"; enabled = true; speed = 5; bezier = "smooth"; style = "slide"; }
+        { leaf = "border"; enabled = true; speed = 10; bezier = "smooth"; }
+        { leaf = "borderangle"; enabled = true; speed = 100; bezier = "smooth"; style = "loop"; }
+        { leaf = "fade"; enabled = true; speed = 5; bezier = "smooth"; }
+        { leaf = "workspaces"; enabled = true; speed = 5; bezier = "smooth"; style = "slidefadevert"; }
+      ];
 
       bind = [
-        "$mainMod, Q, exec, kitty"
-        "$mainMod, W, exec, kitty yazi"
-        "$mainMod, C, killactive,"
-        "$mainMod, M, exit,"
-        "$mainMod SHIFT, F, fullscreen"
-        "$mainMod, V, togglefloating,"
-        "$mainMod, R, exec, yazi"
-        "$mainMod, P, pseudo,"
-        "$mainMod, J, togglesplit,"
-        #"$mainMod, S, exec, noctalia-shell ipc call launcher toggle"
-        "$mainMod, S, exec, rofi -show drun -show-icons"
-        # Lock screen
-        #"$mainMod, L, exec, noctalia-shell ipc call lockScreen lock"
-        "$mainMod, L, exec, hyprlock --grace 5"
+        { _args = [ "SUPER + Q" (mkLuaInline ''hl.dsp.exec_cmd("kitty")'') ]; }
+        { _args = [ "SUPER + W" (mkLuaInline ''hl.dsp.exec_cmd("kitty yazi")'') ]; }
+        { _args = [ "SUPER + C" (mkLuaInline "hl.dsp.window.close()") ]; }
+        { _args = [ "SUPER + M" (mkLuaInline "hl.dsp.exit()") ]; }
+        { _args = [ "SUPER + SHIFT + F" (mkLuaInline "hl.dsp.window.fullscreen()") ]; }
+        { _args = [ "SUPER + V" (mkLuaInline ''hl.dsp.window.float({ action = "toggle" })'') ]; }
+        { _args = [ "SUPER + R" (mkLuaInline ''hl.dsp.exec_cmd("yazi")'') ]; }
+        { _args = [ "SUPER + P" (mkLuaInline "hl.dsp.window.pseudo()") ]; }
+        { _args = [ "SUPER + J" (mkLuaInline ''hl.dsp.layout("togglesplit")'') ]; }
+        # "SUPER + S" noctalia launcher (commented in original): hl.dsp.exec_cmd("noctalia-shell ipc call launcher toggle")
+        { _args = [ "SUPER + S" (mkLuaInline ''hl.dsp.exec_cmd("rofi -show drun -show-icons")'') ]; }
+        # Lock screen ("SUPER + L" noctalia lock in original): hl.dsp.exec_cmd("noctalia-shell ipc call lockScreen lock")
+        { _args = [ "SUPER + L" (mkLuaInline ''hl.dsp.exec_cmd("hyprlock --grace 5")'') ]; }
         # Shutdown
-        "$mainMod SHIFT, k, exec, shutdown now"
+        { _args = [ "SUPER + SHIFT + K" (mkLuaInline ''hl.dsp.exec_cmd("shutdown now")'') ]; }
         # Screenshot
-        "$mainMod SHIFT, s, exec, hyprshot -m region"
-        "$mainMod SHIFT, x, exec, hyprshot -m output -m DP-4"
+        { _args = [ "SUPER + SHIFT + S" (mkLuaInline ''hl.dsp.exec_cmd("hyprshot -m region")'') ]; }
+        { _args = [ "SUPER + SHIFT + X" (mkLuaInline ''hl.dsp.exec_cmd("hyprshot -m output -m DP-4")'') ]; }
         # Apps
-        "$mainMod SHIFT, c, exec, code --enable-features=UseOzonePlatform --ozone-platform=wayland"
-        "$mainMod SHIFT, b, exec, spotify --enable-features=UseOzonePlatform --ozone-platform=wayland"
+        { _args = [ "SUPER + SHIFT + C" (mkLuaInline ''hl.dsp.exec_cmd("code --enable-features=UseOzonePlatform --ozone-platform=wayland")'') ]; }
+        { _args = [ "SUPER + SHIFT + B" (mkLuaInline ''hl.dsp.exec_cmd("spotify --enable-features=UseOzonePlatform --ozone-platform=wayland")'') ]; }
         # Brightness and volume
-        ", xf86monbrightnessup, exec, brightnessctl set 10%+"
-        ", xf86monbrightnessdown, exec, brightnessctl set 10%-"
-        ", xf86audioraisevolume, exec, amixer set Master 5%+ unmute"
-        ", xf86audiolowervolume, exec, amixer set Master 5%- unmute"
-        ", xf86audiomute, exec, amixer set Master toggle"
+        { _args = [ "XF86MonBrightnessUp" (mkLuaInline ''hl.dsp.exec_cmd("brightnessctl set 10%+")'') ]; }
+        { _args = [ "XF86MonBrightnessDown" (mkLuaInline ''hl.dsp.exec_cmd("brightnessctl set 10%-")'') ]; }
+        { _args = [ "XF86AudioRaiseVolume" (mkLuaInline ''hl.dsp.exec_cmd("amixer set Master 5%+ unmute")'') ]; }
+        { _args = [ "XF86AudioLowerVolume" (mkLuaInline ''hl.dsp.exec_cmd("amixer set Master 5%- unmute")'') ]; }
+        { _args = [ "XF86AudioMute" (mkLuaInline ''hl.dsp.exec_cmd("amixer set Master toggle")'') ]; }
         # Move focus
-        "$mainMod, left, movefocus, l"
-        "$mainMod, right, movefocus, r"
-        "$mainMod, up, movefocus, u"
-        "$mainMod, down, movefocus, d"
+        { _args = [ "SUPER + left" (mkLuaInline ''hl.dsp.focus({ direction = "left" })'') ]; }
+        { _args = [ "SUPER + right" (mkLuaInline ''hl.dsp.focus({ direction = "right" })'') ]; }
+        { _args = [ "SUPER + up" (mkLuaInline ''hl.dsp.focus({ direction = "up" })'') ]; }
+        { _args = [ "SUPER + down" (mkLuaInline ''hl.dsp.focus({ direction = "down" })'') ]; }
         # Switch workspaces
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        "$mainMod, 0, workspace, 10"
+        { _args = [ "SUPER + 1" (mkLuaInline "hl.dsp.focus({ workspace = 1 })") ]; }
+        { _args = [ "SUPER + 2" (mkLuaInline "hl.dsp.focus({ workspace = 2 })") ]; }
+        { _args = [ "SUPER + 3" (mkLuaInline "hl.dsp.focus({ workspace = 3 })") ]; }
+        { _args = [ "SUPER + 4" (mkLuaInline "hl.dsp.focus({ workspace = 4 })") ]; }
+        { _args = [ "SUPER + 5" (mkLuaInline "hl.dsp.focus({ workspace = 5 })") ]; }
+        { _args = [ "SUPER + 6" (mkLuaInline "hl.dsp.focus({ workspace = 6 })") ]; }
+        { _args = [ "SUPER + 7" (mkLuaInline "hl.dsp.focus({ workspace = 7 })") ]; }
+        { _args = [ "SUPER + 8" (mkLuaInline "hl.dsp.focus({ workspace = 8 })") ]; }
+        { _args = [ "SUPER + 9" (mkLuaInline "hl.dsp.focus({ workspace = 9 })") ]; }
+        { _args = [ "SUPER + 0" (mkLuaInline "hl.dsp.focus({ workspace = 10 })") ]; }
         # Move window to workspace
-        "$mainMod SHIFT, 1, movetoworkspace, 1"
-        "$mainMod SHIFT, 2, movetoworkspace, 2"
-        "$mainMod SHIFT, 3, movetoworkspace, 3"
-        "$mainMod SHIFT, 4, movetoworkspace, 4"
-        "$mainMod SHIFT, 5, movetoworkspace, 5"
-        "$mainMod SHIFT, 6, movetoworkspace, 6"
-        "$mainMod SHIFT, 7, movetoworkspace, 7"
-        "$mainMod SHIFT, 8, movetoworkspace, 8"
-        "$mainMod SHIFT, 9, movetoworkspace, 9"
-        "$mainMod SHIFT, 0, movetoworkspace, 10"
+        { _args = [ "SUPER + SHIFT + 1" (mkLuaInline "hl.dsp.window.move({ workspace = 1 })") ]; }
+        { _args = [ "SUPER + SHIFT + 2" (mkLuaInline "hl.dsp.window.move({ workspace = 2 })") ]; }
+        { _args = [ "SUPER + SHIFT + 3" (mkLuaInline "hl.dsp.window.move({ workspace = 3 })") ]; }
+        { _args = [ "SUPER + SHIFT + 4" (mkLuaInline "hl.dsp.window.move({ workspace = 4 })") ]; }
+        { _args = [ "SUPER + SHIFT + 5" (mkLuaInline "hl.dsp.window.move({ workspace = 5 })") ]; }
+        { _args = [ "SUPER + SHIFT + 6" (mkLuaInline "hl.dsp.window.move({ workspace = 6 })") ]; }
+        { _args = [ "SUPER + SHIFT + 7" (mkLuaInline "hl.dsp.window.move({ workspace = 7 })") ]; }
+        { _args = [ "SUPER + SHIFT + 8" (mkLuaInline "hl.dsp.window.move({ workspace = 8 })") ]; }
+        { _args = [ "SUPER + SHIFT + 9" (mkLuaInline "hl.dsp.window.move({ workspace = 9 })") ]; }
+        { _args = [ "SUPER + SHIFT + 0" (mkLuaInline "hl.dsp.window.move({ workspace = 10 })") ]; }
         # Special workspace (scratchpad)
-        "$mainMod, ü, togglespecialworkspace, magic"
+        { _args = [ "SUPER + ü" (mkLuaInline ''hl.dsp.workspace.toggle_special("magic")'') ]; }
         # Scroll through workspaces
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
+        { _args = [ "SUPER + mouse_down" (mkLuaInline ''hl.dsp.focus({ workspace = "e+1" })'') ]; }
+        { _args = [ "SUPER + mouse_up" (mkLuaInline ''hl.dsp.focus({ workspace = "e-1" })'') ]; }
+        # Media keys (locked: active on lockscreen) — was bindl
+        { _args = [ "XF86AudioPlay" (mkLuaInline ''hl.dsp.exec_cmd("playerctl play-pause")'') { locked = true; } ]; }
+        { _args = [ "XF86AudioNext" (mkLuaInline ''hl.dsp.exec_cmd("playerctl next")'') { locked = true; } ]; }
+        { _args = [ "XF86AudioPrev" (mkLuaInline ''hl.dsp.exec_cmd("playerctl previous")'') { locked = true; } ]; }
+        # Mouse binds — was bindm
+        { _args = [ "SUPER + mouse:272" (mkLuaInline "hl.dsp.window.drag()") { mouse = true; } ]; }
+        { _args = [ "SUPER + mouse:273" (mkLuaInline "hl.dsp.window.resize()") { mouse = true; } ]; }
       ];
 
-      # Media key binds
-      bindl = [
-        ", XF86AudioPlay, exec, playerctl play-pause"
-        ", XF86AudioNext, exec, playerctl next"
-        ", XF86AudioPrev, exec, playerctl previous"
+      # Common startup apps (host-specific ones go in home-<host>.nix, also as `on`)
+      on = [
+        {
+          _args = [
+            "hyprland.start"
+            (mkLuaInline ''
+              function()
+                hl.exec_cmd("nm-applet --indicator")
+                hl.exec_cmd("blueman-applet")
+                hl.exec_cmd("waybar")
+                hl.exec_cmd("swaync")
+                hl.exec_cmd("xrdb -load ~/.Xresources")
+                -- hl.exec_cmd("noctalia-shell")
+                hl.exec_cmd("awww-daemon")
+                hl.exec_cmd("sleep 1 && hyprctl reload")
+              end'')
+          ];
+        }
       ];
 
-      # Mouse binds
-      bindm = [
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
-      ];
+      window_rule = {
+        match = { class = "^(code)$"; };
+        opacity = "0.95 0.9 1.0";
+      };
 
-      # Common startup apps (host-specific ones go in home-<host>.nix)
-      exec-once = [
-        "nm-applet --indicator"
-        "blueman-applet"
-        "waybar"
-        "swaync"
-        "xrdb -load ~/.Xresources"
-        # "noctalia-shell"
-        "swww-daemon"
-        "sleep 1 && hyprctl reload"
-      ];
-
-      windowrulev2 = [
-        "opacity 0.95 0.9, class:^(code)$"
-      ];
-
-      layerrule = [
-        "blur, rofi"
-        "ignorezero, rofi"
-        "blur, waybar"
-        "ignorezero, waybar"
-        "blurpopups, waybar"
-        "blur, noctalia-shell"
-        "ignorezero, noctalia-shell"
-        "blurpopups, noctalia-shell"
-        "ignorealpha 0.2, waybar"
-        "blur, swaync-control-center"
-        "ignorezero, swaync-control-center"
-        "blur, swaync-notification-window"
-        "ignorezero, swaync-notification-window"
+      layer_rule = [
+        { match = { namespace = "rofi"; }; blur = true; ignore_alpha = 0; }
+        { match = { namespace = "waybar"; }; blur = true; blur_popups = true; ignore_alpha = 0.2; }
+        { match = { namespace = "noctalia-shell"; }; blur = true; blur_popups = true; ignore_alpha = 0; }
+        { match = { namespace = "swaync-control-center"; }; blur = true; ignore_alpha = 0; }
+        { match = { namespace = "swaync-notification-window"; }; blur = true; ignore_alpha = 0; }
       ];
     };
   };

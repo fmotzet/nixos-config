@@ -7,8 +7,8 @@
   home-manager.users.felix = {
     wayland.windowManager.hyprland.settings = {
       monitor = [
-        "eDP-1,2880x1920@60,0x0,1.5"
-        ",preferred,auto,1"
+        { output = "eDP-1"; mode = "2880x1920@60"; position = "0x0"; scale = 1.5; }
+        { output = ""; mode = "preferred"; position = "auto"; scale = 1; }
       ];
     };
   };
