@@ -58,19 +58,19 @@ let
       icu
 
       # X11/Wayland support
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libXcursor
-      xorg.libXi
-      xorg.libxcb
-      xorg.libICE
-      xorg.libSM
+      libX11
+      libXcomposite
+      libXdamage
+      libXext
+      libXfixes
+      libXrandr
+      libXrender
+      libXtst
+      libXcursor
+      libXi
+      libxcb
+      libICE
+      libSM
       xwayland
 
       # Mesa / GPU
