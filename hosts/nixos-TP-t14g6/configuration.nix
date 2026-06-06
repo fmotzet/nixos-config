@@ -4,7 +4,7 @@
     [
       ./hardware-configuration.nix
       ../../system/users.nix
-      ../../system/rdm.nix
+      # ../../system/rdm.nix
       ../../home/home-TP-t14g6.nix
     ];
 
@@ -169,7 +169,7 @@
     wireguard-tools
     wget
     wttrbar
-    xorg.xrdb
+    xrdb
     zsh
     # haskell
     ghc
