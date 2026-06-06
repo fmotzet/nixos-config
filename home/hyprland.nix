@@ -121,7 +121,9 @@ in
         { _args = [ "SUPER + SHIFT + X" (mkLuaInline ''hl.dsp.exec_cmd("hyprshot -m output -m DP-4")'') ]; }
         # Apps
         { _args = [ "SUPER + SHIFT + C" (mkLuaInline ''hl.dsp.exec_cmd("code --enable-features=UseOzonePlatform --ozone-platform=wayland")'') ]; }
-        { _args = [ "SUPER + SHIFT + B" (mkLuaInline ''hl.dsp.exec_cmd("spotify --enable-features=UseOzonePlatform --ozone-platform=wayland")'') ]; }
+        # env -u DISPLAY forces Spotify (old CEF, v1.2.86.502) onto native Wayland
+        # instead of XWayland, so it uses the server-side hyprcursor like other apps.
+        { _args = [ "SUPER + SHIFT + B" (mkLuaInline ''hl.dsp.exec_cmd("env -u DISPLAY spotify")'') ]; }
         # Brightness and volume
         { _args = [ "XF86MonBrightnessUp" (mkLuaInline ''hl.dsp.exec_cmd("brightnessctl set 10%+")'') ]; }
         { _args = [ "XF86MonBrightnessDown" (mkLuaInline ''hl.dsp.exec_cmd("brightnessctl set 10%-")'') ]; }
