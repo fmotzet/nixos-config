@@ -171,7 +171,7 @@
     wireguard-tools
     wget
     wttrbar
-    xorg.xrdb
+    xrdb
     zsh
     # haskell
     ghc

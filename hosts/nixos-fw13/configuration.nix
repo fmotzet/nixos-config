@@ -109,7 +109,7 @@
     wireshark
     wget
     wttrbar
-    xorg.xrdb
+    xrdb
     zsh
     # Python
     (python3.withPackages(ps: with ps; [
