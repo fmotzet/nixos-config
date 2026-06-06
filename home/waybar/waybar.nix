@@ -278,7 +278,9 @@ in
         "group/logo-user" = {
           orientation = "horizontal";
           modules = [
-            "image"
+            # "image"  # disabled: waybar 0.15.0 image widget makes the whole
+            # bar render invisible on Hyprland (Alexays/Waybar#4864). Re-enable
+            # once upstream ships a fix.
             "user"
           ];
           drawer = {
