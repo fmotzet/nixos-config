@@ -11,7 +11,7 @@
         "editor.fontSize" = 14;
         "workbench.sideBar.location" = "right";
         "git.autofetch" = true;
-        "workbench.colorTheme" = "Default Dark Modern";
+        "workbench.colorTheme" = "Dark Modern";
 
         "extensions.autoUpdate" = false;
         "telemetry.telemetryLevel" = "off";
