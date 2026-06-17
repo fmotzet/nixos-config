@@ -13,5 +13,5 @@
   users.users.motzworks = {
     isNormalUser = true;
     shell = pkgs.bash;
-  }
+  };
 }
