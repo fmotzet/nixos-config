@@ -45,7 +45,11 @@
   programs.hyprlock.enable = true;
 
   # Enable zsh as default user shell
-  programs.zsh.enable = true;  
+  programs.zsh.enable = true;
+
+  # Enable Docker
+  virtualisation.docker.enable = true;
+  users.users.felix.extraGroups = [ "docker" ];
 
   # Thunderbird Email client
   programs.thunderbird.enable = true;
