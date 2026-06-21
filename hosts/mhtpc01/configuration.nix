@@ -7,23 +7,25 @@
   imports = [
     ./hardware-configuration.nix   # Generate on device: nixos-generate-config
     ../../system/users.nix
-    ../../modules/htpc.nix
+    ../../home/home-mhtpc01.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "mhtpc01";
-  # Ethernet only — WiFi antennas disconnected with lid removed
   networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Berlin";
-
-  i18n.defaultLocale = "en_US.UTF-8";
-  console.keyMap = "de";
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
+
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "de";
+  };
+  users.users.tv 
 
   # User config: add video group for CEC device access
   users.users.felix.extraGroups = [ "video" ];
@@ -38,11 +40,8 @@
     vim
     wget
     htop
-    alsa-utils   # For debugging audio (aplay, amixer)
+    alsa-utils
   ];
-
-  # Open SSH port (default firewall blocks it)
-  # networking.firewall.allowedTCPPorts = [ 22 ];  # openssh module handles this
 
   system.stateVersion = "25.11";
 }
