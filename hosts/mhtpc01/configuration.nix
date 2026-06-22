@@ -25,10 +25,31 @@
     font = "Lat2-Terminus16";
     keyMap = "de";
   };
-  users.users.tv 
-
   # User config: add video group for CEC device access
   users.users.felix.extraGroups = [ "video" ];
+
+  # Hyprland (Wayland session for the HTPC)
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
+  # Autologin straight into Hyprland on boot — no greeter, no password.
+  # initial_session runs once at startup; default_session relaunches the
+  # session (still passwordless) if Hyprland ever exits.
+  services.greetd = {
+    enable = true;
+    settings = {
+      initial_session = {
+        command = "Hyprland";
+        user = "felix";
+      };
+      default_session = {
+        command = "Hyprland";
+        user = "felix";
+      };
+    };
+  };
 
   # SSH for remote administration
   services.openssh = {
