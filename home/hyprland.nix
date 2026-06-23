@@ -1,6 +1,12 @@
-{ lib, ... }:
+{ lib, osConfig, ... }:
 let
   inherit (lib.generators) mkLuaInline;
+  
+  # this is pretty cool, extra functions go here
+  exitAction =
+    if osConfig.networking.hostName == "nixos-TP-t14g6"
+    then "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger stop & hl.dsp.exit()"
+    else "hl.dsp.exit()";
 in
 {
   wayland.windowManager.hyprland = {
@@ -106,7 +112,7 @@ in
         { _args = [ "SUPER + Q" (mkLuaInline ''hl.dsp.exec_cmd("kitty")'') ]; }
         { _args = [ "SUPER + W" (mkLuaInline ''hl.dsp.exec_cmd("kitty yazi")'') ]; }
         { _args = [ "SUPER + C" (mkLuaInline "hl.dsp.window.close()") ]; }
-        { _args = [ "SUPER + M" (mkLuaInline "hl.dsp.exit()") ]; }
+        { _args = [ "SUPER + M" (mkLuaInline exitAction) ]; }
         { _args = [ "SUPER + SHIFT + F" (mkLuaInline "hl.dsp.window.fullscreen()") ]; }
         { _args = [ "SUPER + V" (mkLuaInline ''hl.dsp.window.float({ action = "toggle" })'') ]; }
         { _args = [ "SUPER + R" (mkLuaInline ''hl.dsp.exec_cmd("yazi")'') ]; }
