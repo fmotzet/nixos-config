@@ -5,7 +5,7 @@ let
   # this is pretty cool, extra functions go here
   exitAction =
     if osConfig.networking.hostName == "nixos-TP-t14g6"
-    then ''hl.exec_cmd("TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger stop"); hl.dsp.exit()''
+    then ''hl.dsp.exec_cmd("TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger stop; hyprctl dispatch exit")''
     else "hl.dsp.exit()";
 in
 {
