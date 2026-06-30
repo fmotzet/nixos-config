@@ -64,5 +64,12 @@
     alsa-utils
   ];
 
+  fonts.packages = with pkgs; [
+    font-awesome
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+
   system.stateVersion = "25.11";
 }
