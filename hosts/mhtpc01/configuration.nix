@@ -28,6 +28,11 @@
   # User config: add video group for CEC device access
   users.users.felix.extraGroups = [ "video" ];
 
+  # Enable bluetooth.
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
+
   # Hyprland (Wayland session for the HTPC)
   programs.hyprland = {
     enable = true;
@@ -41,11 +46,11 @@
     enable = true;
     settings = {
       initial_session = {
-        command = "Hyprland";
+        command = "start-hyprland";
         user = "felix";
       };
       default_session = {
-        command = "Hyprland";
+        command = "start-hyprland";
         user = "felix";
       };
     };
