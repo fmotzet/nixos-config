@@ -42,7 +42,7 @@
         nix-dev-init = "cp /home/felix/nixos-config/templates/rust/flake.nix . && echo 'use flake' > .envrc && git add flake.nix .envrc && direnv allow";
         shsh = "start-hyprland";
         # is this cool?
-        tpwgen = "nix-shell -p pwgen --run 'pwgen 16'";
+        tpwgen = "nix-shell -p pwgen --run 'pwgen'";
       };
       initExtra = ''
         if [ "$TERM" = "xterm-kitty" ]; then
