@@ -33,15 +33,28 @@
   hardware.bluetooth.powerOnBoot = true;
   services.blueman.enable = true;
 
+  # try to enable HDMI audio output by default, and lower priority for analog output.
+  environment.etc."wireplumber/wireplumber.conf.d/50-hdmi-default.conf".text = ''
+    monitor.alsa.rules = [
+      {
+        matches = [ { node.name = "~alsa_output.*hdmi.*" } ]
+        actions.update-props = { priority.session = 2000 }
+      }
+      {
+        matches = [ { node.name = "~alsa_output.*analog.*" } ]
+        actions.update-props = { priority.session = 100 }
+      }
+    ]
+  '';
+
   # Hyprland (Wayland session for the HTPC)
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
   };
 
-  # Autologin straight into Hyprland on boot — no greeter, no password.
-  # initial_session runs once at startup; default_session relaunches the
-  # session (still passwordless) if Hyprland ever exits.
+  # Autologin straight into Hyprland on boot
+  # initial_session runs once at startup; default_session relaunches the session (still passwordless) if Hyprland ever exits.
   services.greetd = {
     enable = true;
     settings = {
