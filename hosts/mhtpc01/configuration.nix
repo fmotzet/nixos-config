@@ -5,7 +5,7 @@
 
 {
   imports = [
-    ./hardware-configuration.nix   # Generate on device: nixos-generate-config
+    ./hardware-configuration.nix
     ../../system/users.nix
     ../../home/home-mhtpc01.nix
   ];
@@ -76,10 +76,12 @@
   };
 
   environment.systemPackages = with pkgs; [
+    alsa-utils
+    btop
+    htop
+    spotify
     vim
     wget
-    htop
-    alsa-utils
   ];
 
   fonts.packages = with pkgs; [
