@@ -127,6 +127,10 @@
     services.awww = {
       enable = true;
     };
+    # teams-for-linux flipped followSystemTheme to default true (upstream #2566).
+    xdg.configFile."teams-for-linux/config.json".text = builtins.toJSON {
+      followSystemTheme = false;
+    };
   };
 }
 
