@@ -27,6 +27,7 @@
     wget
     htop
     nfs-utils
+    config.services.forgejo.package
   ];
 
   # NFS mount for the git data + PostgreSQL.
