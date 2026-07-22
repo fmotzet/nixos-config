@@ -29,7 +29,7 @@
     nfs-utils
   ];
 
-  # NFS mount for all Forgejo + PostgreSQL data
+  # NFS mount for the git data + PostgreSQL.
   fileSystems."/mnt/git-data" = {
     device = "192.168.178.128:/srv/nfs/shared/git";
     fsType = "nfs";
@@ -48,11 +48,18 @@
 
   services.forgejo = {
     enable = true;
-    stateDir = "/mnt/git-data/forgejo";
 
-    database.type = "postgres"; 
+    # We have to keep Forgejo's app-state (config + auto-generated secrets) on LOCAL disk.
+    # The module bootstraps its secrets via a systemd service and LoadCredential that run at sysinit, before the NFS mount exists.
+    # Pointing stateDir at NFS makes secret generation land nowhere and Forgejo fails.
+    # Only the bulk data below goes on the NFS.
+    repositoryRoot = "/mnt/git-data/repositories"; # the actual git repos
+    lfs = {
+      enable = true;
+      contentDir = "/mnt/git-data/lfs"; # large LFS objects
+    };
 
-    lfs.enable = true;
+    database.type = "postgres";
 
     settings = {
       server = {
@@ -86,19 +93,31 @@
 
   virtualisation.docker.enable = true;
 
-  systemd.tmpfiles.rules = [
-    "d /mnt/git-data/postgresql 0700 postgres postgres -"
-    "d /mnt/git-data/forgejo 0750 forgejo forgejo -"
-  ];
-
-  # Make PostgreSQL and Forgejo wait for the NFS mount to come up.
-  systemd.services.postgresql = {
+  systemd.services.git-data-dirs = {
+    description = "Create Forgejo/PostgreSQL data dirs on the NFS mount";
     after = [ "mnt-git\\x2ddata.mount" ];
     requires = [ "mnt-git\\x2ddata.mount" ];
+    before = [ "postgresql.service" "forgejo.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      install -d -o postgres -g postgres -m 0700 /mnt/git-data/postgresql
+      install -d -o forgejo  -g forgejo  -m 0750 /mnt/git-data/repositories
+      install -d -o forgejo  -g forgejo  -m 0750 /mnt/git-data/lfs
+    '';
+  };
+
+  # PostgreSQL and Forgejo must wait for the mount + the dir-creation above.
+  systemd.services.postgresql = {
+    after = [ "git-data-dirs.service" ];
+    requires = [ "git-data-dirs.service" ];
   };
   systemd.services.forgejo = {
-    after = [ "mnt-git\\x2ddata.mount" ];
-    requires = [ "mnt-git\\x2ddata.mount" ];
+    after = [ "git-data-dirs.service" ];
+    requires = [ "git-data-dirs.service" ];
   };
 
   services.openssh = {
