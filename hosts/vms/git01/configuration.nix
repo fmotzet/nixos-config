@@ -29,8 +29,7 @@
     nfs-utils
   ];
 
-  # NFS mount for all Forgejo + PostgreSQL data (slower HDD-backed export — fine for git).
-  # Kept as a hard boot mount (no idle-timeout/noauto) so PostgreSQL always has access.
+  # NFS mount for all Forgejo + PostgreSQL data
   fileSystems."/mnt/git-data" = {
     device = "192.168.178.128:/srv/nfs/shared/git";
     fsType = "nfs";
@@ -41,47 +40,35 @@
   };
 
   # --- PostgreSQL (data on NFS) ---
-  # Forgejo creates its own DB + user via peer auth over the local socket
-  # (services.forgejo.database.createDatabase = true, the default), so no
-  # password lives in this repo.
   services.postgresql = {
     enable = true;
     package = pkgs.postgresql_17;
     dataDir = "/mnt/git-data/postgresql";
   };
 
-  # --- Forgejo (git server + built-in Actions) ---
   services.forgejo = {
     enable = true;
-    # Repos, LFS, avatars, etc. all live on the NFS mount.
     stateDir = "/mnt/git-data/forgejo";
 
-    database.type = "postgres"; # createDatabase = true by default (peer auth, local socket)
+    database.type = "postgres"; 
 
-    # Store LFS objects on NFS too (default is under stateDir, set explicitly for clarity)
     lfs.enable = true;
 
     settings = {
       server = {
         DOMAIN = "git01";
         HTTP_PORT = 3000;
-        # Update ROOT_URL to your reverse-proxy / real hostname when you have one.
         ROOT_URL = "http://git01:3000/";
       };
-      # GitHub-Actions-compatible CI. Runner is registered below.
+      # GitHub-Actions-compatible CI. Runner is registered below gitea runner.
       actions.ENABLED = true;
-      # Lock the instance down — no open sign-ups on a personal server.
       service.DISABLE_REGISTRATION = true;
       # Let Actions reach github.com / codeberg.org for deploy/mirror jobs.
-      # (These are the defaults but pinned here so pipelines to external hosts work.)
       migrations.ALLOWED_DOMAINS = "*";
     };
   };
 
-  # --- Forgejo Actions runner (Docker backend for best GH-Actions compatibility) ---
-  # BOOTSTRAP: after Forgejo is up, create a runner registration token in the web UI
-  # (Site Administration -> Actions -> Runners -> Create new Runner) and write it to
-  # /mnt/git-data/runner-token, then `sudo systemctl restart gitea-runner-default`.
+  # --- Forgejo Actions runner 
   services.gitea-actions-runner = {
     package = pkgs.forgejo-runner;
     instances.default = {
@@ -97,10 +84,8 @@
     };
   };
 
-  # Docker is required for the runner's container jobs.
   virtualisation.docker.enable = true;
 
-  # Ensure the NFS data directories exist (server export must allow root chown / no_root_squash).
   systemd.tmpfiles.rules = [
     "d /mnt/git-data/postgresql 0700 postgres postgres -"
     "d /mnt/git-data/forgejo 0750 forgejo forgejo -"
@@ -121,7 +106,7 @@
     settings.PasswordAuthentication = true;
   };
 
-  # 3000 = Forgejo web UI (22 is opened automatically by the openssh module).
+  # 3000 = Forgejo web UI
   networking.firewall.allowedTCPPorts = [ 3000 ];
 
   system.stateVersion = "25.11";
