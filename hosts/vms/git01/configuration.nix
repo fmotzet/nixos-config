@@ -1,5 +1,23 @@
 { config, lib, pkgs, ... }:
 
+let
+  runnerConfig = pkgs.writeText "forgejo-runner-config.yaml" (builtins.toJSON {
+    log.level = "info";
+    runner = {
+      capacity = 1;
+      labels = [
+        "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-22.04"
+        "ubuntu-22.04:docker://ghcr.io/catthehacker/ubuntu:act-22.04"
+        "node:docker://node:20-bookworm"
+      ];
+    };
+    server.connections.forgejo = {
+      url = "http://localhost:3000/";
+      uuid = "ffc5038f-563f-457f-adf4-a6bc68b7ff0e";
+      token_url = "file://$CREDENTIALS_DIRECTORY/token";
+    };
+  });
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -76,19 +94,29 @@
     };
   };
 
-  # --- Forgejo Actions runner 
-  services.gitea-actions-runner = {
-    package = pkgs.forgejo-runner;
-    instances.default = {
-      enable = true;
-      name = "git01-docker";
-      url = "http://localhost:3000";
-      tokenFile = "/mnt/git-data/runner-token";
-      labels = [
-        "ubuntu-latest:docker://node:20-bookworm"
-        "ubuntu-22.04:docker://node:20-bookworm"
-        "docker:docker://node:20-bookworm"
-      ];
+  # --- Forgejo Actions runner (connection mode) ---
+  # Newer Forgejo dropped the shared "registration token" flow that
+  # services.gitea-actions-runner uses (forgejo-runner register --token), which
+  # now returns 400 / "registration token not found". Instead the runner is
+  # pre-created in the UI (Site Admin -> Actions -> Runners -> Create new Runner),
+  # yielding a uuid + token; the daemon just connects with those (see runnerConfig).
+  systemd.services.forgejo-runner = {
+    description = "Forgejo Actions Runner (connection mode)";
+    after = [ "network-online.target" "forgejo.service" "docker.service" "mnt-git\\x2ddata.mount" ];
+    wants = [ "network-online.target" ];
+    requires = [ "docker.service" "mnt-git\\x2ddata.mount" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config ${runnerConfig}";
+      # Raw 40-char token file on NFS, exposed to the daemon as a systemd credential.
+      LoadCredential = [ "token:/mnt/git-data/runner-token" ];
+      DynamicUser = true;
+      StateDirectory = "forgejo-runner";
+      WorkingDirectory = "%S/forgejo-runner";
+      SupplementaryGroups = [ "docker" ];
+      Restart = "on-failure";
+      RestartSec = "5s";
     };
   };
 
