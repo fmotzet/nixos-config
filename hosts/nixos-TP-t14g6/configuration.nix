@@ -159,6 +159,8 @@
     nfs-utils
     noto-fonts-color-emoji
     openvpn
+    poppler-utils
+    samba
     pkgs-unstable.ratty
     spotify
     strongswan
