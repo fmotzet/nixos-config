@@ -104,6 +104,13 @@
   # Enable Upower for enumerating power devices
   services.upower.enable = true;
 
+  # btrfs autoScrub
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = ["/"];
+    interval = "weekly";
+  };
+
   # AMD pstate EPP + GPU + boost: performance mode
   systemd.tmpfiles.rules = [
     "w /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - performance"
