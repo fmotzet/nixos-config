@@ -1,22 +1,6 @@
 { lib, ... }:
 let
   inherit (lib.generators) mkLuaInline;
-
-  # Internal hostnames and the AD account are kept out of this public repo.
-  # Real values live in ./work-local.nix (gitignored); without it print-file
-  # is still defined but refuses to run.
-  work =
-    let defaults = {
-      printServer = "";
-      printDomain = "";
-      printUser = "";
-      printQueues = { gray = ""; color = ""; a3 = ""; };
-    };
-    in defaults // (
-      if builtins.pathExists ./work-local.nix
-      then import ./work-local.nix
-      else { }
-    );
 in
 {
   imports = [
@@ -31,39 +15,42 @@ in
       fixdns = "sudo bash -c 'echo -e \"nameserver 10.20.36.1\\n$(cat /etc/resolv.conf)\" > /etc/resolv.conf'";
     };
 
-    # Print via the office print server. The printers refuse direct jobs, and
-    # the server's shares are generic follow-me queues -- the job is held until
-    # it is released by badging at a printer, matched on the domain user name
-    # (the local account differs, so smbclient authenticates as that user).
-    # Site-specific values come from ./work-local.nix.
     programs.bash.initExtra = ''
       print-file() {
-        local server="${work.printServer}"
-        local domain="${work.printDomain}"
-        local user="${work.printUser}"
-        local queue="${work.printQueues.gray}"
+        local conf="''${XDG_CONFIG_HOME:-$HOME/.config}/print-file.conf"
+        local server="" domain="" user="" queue=""
+        local queue_gray="" queue_color="" queue_a3=""
         local file=""
 
-        if [ -z "$server" ] || [ -z "$user" ]; then
-          echo "print-file: not configured -- create home/work-local.nix" >&2
-          return 1
+        if [ -r "$conf" ]; then
+          # shellcheck source=/dev/null
+          . "$conf"
+          server="$PRINT_SERVER"
+          domain="$PRINT_DOMAIN"
+          user="$PRINT_USER"
+          queue_gray="$PRINT_QUEUE_GRAY"
+          queue_color="$PRINT_QUEUE_COLOR"
+          queue_a3="$PRINT_QUEUE_A3"
         fi
+        queue="$queue_gray"
 
         while [ $# -gt 0 ]; do
           case "$1" in
-            -c|--color) queue="${work.printQueues.color}" ;;
-            -3|--a3)    queue="${work.printQueues.a3}" ;;
+            -c|--color) queue="$queue_color" ;;
+            -3|--a3)    queue="$queue_a3" ;;
             -h|--help)
-              cat <<'EOF'
+              cat <<EOF
       usage: print-file [-c|--color] [-3|--a3] FILE
 
         Accepts a PDF or PostScript file. PDFs are scaled to fit A4.
         Prompts for the domain password, then hold your card at a printer
         to release the job.
 
-        -c, --color   ${work.printQueues.color} (colour, A4)
-        -3, --a3      ${work.printQueues.a3} (colour, A3)
-                      default is ${work.printQueues.gray} (greyscale, A4)
+        -c, --color   $queue_color (colour, A4)
+        -3, --a3      $queue_a3 (colour, A3)
+                      default is $queue_gray (greyscale, A4)
+
+        Site config: $conf
       EOF
               return 0 ;;
             -*) echo "print-file: unknown option: $1" >&2; return 2 ;;
@@ -71,6 +58,12 @@ in
           esac
           shift
         done
+
+        # Checked after parsing so --help still works when unconfigured.
+        if [ -z "$server" ] || [ -z "$user" ] || [ -z "$queue" ]; then
+          echo "print-file: not configured -- see $conf" >&2
+          return 1
+        fi
 
         if [ -z "$file" ]; then
           echo "print-file: no file given (see --help)" >&2

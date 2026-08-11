@@ -8,9 +8,5 @@ result-*
 # Personal git config (emails, internal URLs)
 home/git-personal.nix
 
-# Work-only details: internal hostnames, AD account, print queues.
-# The repo is public, so these must not be committed.
-home/work-local.nix
-
 # Dont add CLAUDE.md to repo im scared it will leak secrets 
 CLAUDE.md
