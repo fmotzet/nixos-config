@@ -143,6 +143,8 @@
   programs.firefox.enable = true;
   programs.wireshark.enable = true;
   programs.obs-studio.enable = true;
+  # nix-ld to load and test binaries, pretty cool
+  programs.nix-ld.enable = true;
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL=1;

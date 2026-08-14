@@ -84,8 +84,9 @@
   nixpkgs.config.allowUnfree = true;
 
   services.fprintd.enable = true;
-
   programs.firefox.enable = true;
+  # nix-ld to load and test binaries, pretty cool
+  programs.nix-ld.enable = true;
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL=1;
