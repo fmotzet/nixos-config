@@ -101,6 +101,7 @@
     brightnessctl
     burpsuite
     fprintd
+    gdb
     libnotify
     nfs-utils
     nnn

@@ -163,7 +163,6 @@
     brightnessctl
     dnsmasq
     fprintd
-    gdb
     libnotify
     networkmanager_strongswan
     nfs-utils
