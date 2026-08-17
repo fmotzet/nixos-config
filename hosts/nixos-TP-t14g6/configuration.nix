@@ -174,6 +174,7 @@
     spotify
     strongswan
     teams-for-linux
+    terminaltexteffects
     unzip
     vscodium
     vim

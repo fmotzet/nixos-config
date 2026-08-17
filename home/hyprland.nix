@@ -120,6 +120,7 @@ in
         { _args = [ "SUPER + J" (mkLuaInline ''hl.dsp.layout("togglesplit")'') ]; }
         { _args = [ "SUPER + S" (mkLuaInline ''hl.dsp.exec_cmd("rofi -show drun -show-icons")'') ]; }
         { _args = [ "SUPER + L" (mkLuaInline ''hl.dsp.exec_cmd("hyprlock --grace 5")'') ]; }
+        { _args = [ "SUPER + SHIFT + L" (mkLuaInline ''hl.dsp.exec_cmd("larpaper-toggle")'') ]; }
         # Shutdown
         { _args = [ "SUPER + SHIFT + K" (mkLuaInline ''hl.dsp.exec_cmd("shutdown now")'') ]; }
         # Screenshot

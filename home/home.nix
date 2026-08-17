@@ -16,7 +16,9 @@
     xdg.portal.config.common.default = "*";
 
     imports = [
+      ./larpaper.nix
       ./rofi.nix
+      ./swayidle.nix
       ./swaync.nix
       ./hyprlock.nix
       ./fastfetch.nix
