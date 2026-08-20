@@ -168,9 +168,10 @@
     nfs-utils
     noto-fonts-color-emoji
     openvpn
+    pi-coding-agent
     poppler-utils
-    samba
     pkgs-unstable.ratty
+    samba
     spotify
     strongswan
     teams-for-linux
