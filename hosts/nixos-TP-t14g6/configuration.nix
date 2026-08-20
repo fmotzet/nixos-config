@@ -168,7 +168,7 @@
     nfs-utils
     noto-fonts-color-emoji
     openvpn
-    pi-coding-agent
+    pkgs-unstable.pi-coding-agent
     poppler-utils
     pkgs-unstable.ratty
     samba
