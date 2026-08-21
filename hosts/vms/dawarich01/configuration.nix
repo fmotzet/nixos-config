@@ -170,6 +170,47 @@
     };
   };
 
+  # --- WireGuard (wg0) ---
+  networking.wg-quick.interfaces.wg0.configFile = "/etc/wireguard/wg0.conf";
+
+  systemd.services.wg-quick-wg0.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = 10;
+  };
+  systemd.services.wg0-watchdog = {
+    description = "Restart wg0 if the tunnel is down or stale";
+    after = [ "wg-quick-wg0.service" ];
+    path = [ pkgs.wireguard-tools ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      if ! wg show wg0 > /dev/null 2>&1; then
+        echo "wg0 interface missing, restarting wg-quick-wg0"
+        systemctl restart wg-quick-wg0.service
+        exit 0
+      fi
+
+      now=$(date +%s)
+      newest=0
+      for hs in $(wg show wg0 latest-handshakes | cut -f2); do
+        if [ "$hs" -gt "$newest" ]; then newest=$hs; fi
+      done
+
+      if [ "$newest" -eq 0 ] || [ $((now - newest)) -gt 300 ]; then
+        echo "wg0 handshake stale (last: $newest), restarting wg-quick-wg0"
+        systemctl restart wg-quick-wg0.service
+      fi
+    '';
+  };
+
+  systemd.timers.wg0-watchdog = {
+    description = "Periodic wg0 tunnel health check";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "2min";
+      OnUnitActiveSec = "1min";
+    };
+  };
+
   services.openssh = {
     enable = true;
     settings.PasswordAuthentication = true;
