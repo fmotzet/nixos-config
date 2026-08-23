@@ -2,6 +2,7 @@
 {
   imports = [
     ./home.nix
+    ./quickshell/quickshell.nix
   ];
 
   home-manager.users.felix = {
