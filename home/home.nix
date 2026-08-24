@@ -96,7 +96,7 @@
     # hyprshot screenshot tool
     programs.hyprshot = {
       enable = true;
-      saveLocation = "~/screenshots/";
+      saveLocation = "screenshots";
     };
     # mullvad vpn client
     programs.mullvad-vpn = {
