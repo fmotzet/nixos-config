@@ -11,6 +11,9 @@ let
         "node:docker://node:20-bookworm"
       ];
     };
+    # ROOT_URL is public now, so actions/checkout resolves git.motzfix.com.
+    # Pin it to the LAN IP so the clone does not hairpin out via the VPS.
+    container.options = "--add-host=git.motzfix.com:192.168.178.71";
     server.connections.forgejo = {
       url = "http://localhost:3000/";
       uuid = "ffc5038f-563f-457f-adf4-a6bc68b7ff0e";
@@ -45,6 +48,7 @@ in
     wget
     htop
     nfs-utils
+    wireguard-tools
     config.services.forgejo.package
   ];
 
@@ -82,11 +86,12 @@ in
 
     settings = {
       server = {
-        DOMAIN = "git01";
+        DOMAIN = "git.motzfix.com";
         HTTP_PORT = 3000;
-        ROOT_URL = "http://git01:3000/";
+        ROOT_URL = "https://git.motzfix.com/";
+        # SSH is not exposed publicly; advertise the LAN host for it.
+        SSH_DOMAIN = "git01";
       };
-      repository.DISABLE_HTTP_GIT = true;
       # GitHub-Actions-compatible CI. Runner is registered below gitea runner.
       actions.ENABLED = true;
       service.DISABLE_REGISTRATION = true;
@@ -122,6 +127,47 @@ in
   };
 
   virtualisation.docker.enable = true;
+
+  # --- WireGuard (wg0) ---
+  networking.wg-quick.interfaces.wg0.configFile = "/etc/wireguard/wg0.conf";
+
+  systemd.services.wg-quick-wg0.serviceConfig = {
+    Restart = "on-failure";
+    RestartSec = 10;
+  };
+  systemd.services.wg0-watchdog = {
+    description = "Restart wg0 if the tunnel is down or stale";
+    after = [ "wg-quick-wg0.service" ];
+    path = [ pkgs.wireguard-tools ];
+    serviceConfig.Type = "oneshot";
+    script = ''
+      if ! wg show wg0 > /dev/null 2>&1; then
+        echo "wg0 interface missing, restarting wg-quick-wg0"
+        systemctl restart wg-quick-wg0.service
+        exit 0
+      fi
+
+      now=$(date +%s)
+      newest=0
+      for hs in $(wg show wg0 latest-handshakes | cut -f2); do
+        if [ "$hs" -gt "$newest" ]; then newest=$hs; fi
+      done
+
+      if [ "$newest" -eq 0 ] || [ $((now - newest)) -gt 300 ]; then
+        echo "wg0 handshake stale (last: $newest), restarting wg-quick-wg0"
+        systemctl restart wg-quick-wg0.service
+      fi
+    '';
+  };
+
+  systemd.timers.wg0-watchdog = {
+    description = "Periodic wg0 tunnel health check";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnBootSec = "2min";
+      OnUnitActiveSec = "1min";
+    };
+  };
 
   systemd.services.git-data-dirs = {
     description = "Create Forgejo/PostgreSQL data dirs on the NFS mount";
