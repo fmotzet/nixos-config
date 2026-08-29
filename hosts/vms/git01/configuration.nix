@@ -86,6 +86,7 @@ in
         HTTP_PORT = 3000;
         ROOT_URL = "http://git01:3000/";
       };
+      repository.DISABLE_HTTP_GIT = true;
       # GitHub-Actions-compatible CI. Runner is registered below gitea runner.
       actions.ENABLED = true;
       service.DISABLE_REGISTRATION = true;
