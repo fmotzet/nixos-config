@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../../system/users.nix
+    ../shared.nix
   ];
 
   boot.loader.grub.enable = true;

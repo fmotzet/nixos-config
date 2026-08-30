@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../../system/users.nix
+    ../shared.nix
   ];
 
   boot.loader.grub.enable = true;
@@ -31,7 +32,7 @@
   ];
 
   # NFS mount for Dawarich data — removed idle-timeout/noauto
-  # so it stays mounted (PostgreSQL needs persistent access)
+  # so it stays mounted
   fileSystems."/mnt/dawarich-data" = {
     device = "192.168.178.128:/srv/nfs/shared/dawarich";
     fsType = "nfs";
@@ -57,12 +58,6 @@
     settings = {
       listen_addresses = lib.mkForce "*";
     };
-    # Password is set via the init script on NFS (not in the repo)
-    # The init script at /mnt/dawarich-data/pg-init.sql should contain:
-    #   CREATE USER dawarich WITH PASSWORD 'your_password_here';
-    #   CREATE DATABASE dawarich_production OWNER dawarich;
-    #   \c dawarich_production
-    #   CREATE EXTENSION IF NOT EXISTS postgis;
     initialScript = "/mnt/dawarich-data/pg-init.sql";
   };
 
@@ -170,7 +165,7 @@
     };
   };
 
-  # --- WireGuard (wg0) ---
+  # --- WireGuard ---
   networking.wg-quick.interfaces.wg0.configFile = "/etc/wireguard/wg0.conf";
 
   systemd.services.wg-quick-wg0.serviceConfig = {

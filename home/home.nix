@@ -51,6 +51,9 @@
           fastfetch
           PS1="\n\[\033[01;34m\]<\w> $\[\033[00m\] "
         fi
+
+        bind '"\e[5~": history-search-backward'
+        bind '"\e[6~": history-search-forward'
       '';
     };
 
