@@ -11,8 +11,7 @@ let
         "node:docker://node:20-bookworm"
       ];
     };
-    # ROOT_URL is public now, so actions/checkout resolves git.motzfix.com.
-    # Pin it to the LAN IP so the clone does not hairpin out via the VPS.
+    # Actions/checkout resolves git.motzfix.com. pin to the LAN IP so the clone does not hairpin out via the VPS.
     container.options = "--add-host=git.motzfix.com:192.168.178.71";
     server.connections.forgejo = {
       url = "http://localhost:3000/";
@@ -73,9 +72,7 @@ in
   services.forgejo = {
     enable = true;
 
-    # We have to keep Forgejo's app-state (config + auto-generated secrets) on LOCAL disk.
-    # The module bootstraps its secrets via a systemd service and LoadCredential that run at sysinit, before the NFS mount exists.
-    # Pointing stateDir at NFS makes secret generation land nowhere and Forgejo fails.
+    # Keep Forgejo's app-state (config + auto-generated secrets) on LOCAL disk.
     # Only the bulk data below goes on the NFS.
     repositoryRoot = "/mnt/git-data/repositories"; # the actual git repos
     lfs = {
@@ -90,8 +87,8 @@ in
         DOMAIN = "git.motzfix.com";
         HTTP_PORT = 3000;
         ROOT_URL = "https://git.motzfix.com/";
-        # SSH is not exposed publicly; advertise the LAN host for it.
-        SSH_DOMAIN = "git01";
+        # ssh within network under diffrent name
+        SSH_DOMAIN = "git01"; 
       };
       # GitHub-Actions-compatible CI. Runner is registered below gitea runner.
       actions.ENABLED = true;
@@ -101,12 +98,7 @@ in
     };
   };
 
-  # --- Forgejo Actions runner (connection mode) ---
-  # Newer Forgejo dropped the shared "registration token" flow that
-  # services.gitea-actions-runner uses (forgejo-runner register --token), which
-  # now returns 400 / "registration token not found". Instead the runner is
-  # pre-created in the UI (Site Admin -> Actions -> Runners -> Create new Runner),
-  # yielding a uuid + token; the daemon just connects with those (see runnerConfig).
+  # Forgejo Actions runner (connection mode)
   systemd.services.forgejo-runner = {
     description = "Forgejo Actions Runner (connection mode)";
     after = [ "network-online.target" "forgejo.service" "docker.service" "mnt-git\\x2ddata.mount" ];
@@ -116,7 +108,6 @@ in
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.forgejo-runner}/bin/forgejo-runner daemon --config ${runnerConfig}";
-      # Raw 40-char token file on NFS, exposed to the daemon as a systemd credential.
       LoadCredential = [ "token:/mnt/git-data/runner-token" ];
       DynamicUser = true;
       StateDirectory = "forgejo-runner";
@@ -129,7 +120,7 @@ in
 
   virtualisation.docker.enable = true;
 
-  # --- WireGuard (wg0) ---
+  # WireGuard (wg0) 
   networking.wg-quick.interfaces.wg0.configFile = "/etc/wireguard/wg0.conf";
 
   systemd.services.wg-quick-wg0.serviceConfig = {
