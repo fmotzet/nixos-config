@@ -53,6 +53,15 @@
         }
       ];
     };
+    nixosConfigurations.tower01 = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit pkgs-unstable noctalia; };
+      modules = [
+        ./hosts/tower01/configuration.nix
+        home-manager.nixosModules.home-manager
+        { home-manager.extraSpecialArgs = { inherit pkgs-unstable noctalia; }; }
+      ];
+    };
 
     # VMs
     nixosConfigurations.mnextcloud01 = nixpkgs.lib.nixosSystem {

@@ -10,7 +10,7 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  
+
   # Systemd boot optimization
   systemd.services.NetworkManager-wait-online.enable = false;
   #boot.kernel.sysctl = {
@@ -33,8 +33,27 @@
     keyMap = "de";
   };
 
-  # Enable power profile deamon
-  services.power-profiles-daemon.enable = true;
+  # Enable OpenGL
+  hardware.graphics = {
+    enable = true;
+    # for steam
+    enable32Bit = true;
+  };
+
+  # make nvidia work https://nixos.wiki/wiki/Nvidia
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = false;
+    # Fine-grained power management. Turns off GPU when not in use.
+    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+    powerManagement.finegrained = false;
+    open = true;
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+  
+  # Load nvidia driver for Xorg and Wayland
+  services.xserver.videoDrivers = ["nvidia"];
 
   # Enable Hyprland
   programs.hyprland = {
@@ -90,11 +109,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    acpi
     alsa-utils
-    brightnessctl
     burpsuite
-    fprintd
     gdb
     libnotify
     nfs-utils
