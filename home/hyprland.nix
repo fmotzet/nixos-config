@@ -69,7 +69,7 @@ in
         };
 
         cursor = {
-          no_hardware_cursors = 0;
+          no_hardware_cursors = if osConfig.networking.hostName == "tower01" then 1 else 0;
           enable_hyprcursor = true;
           persistent_warps = true;
         };
