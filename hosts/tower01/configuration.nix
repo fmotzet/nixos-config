@@ -110,6 +110,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     alsa-utils
+    beyond-all-reason
     burpsuite
     gdb
     libnotify
