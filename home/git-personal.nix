@@ -1,10 +1,17 @@
 { ... }:
-{
-  programs.git.settings.user.email = "felix.motzet@gmail.com";
-  programs.git.includes = [
-    {
-      condition = "hasconfig:remote.*.url:git@gitlab.boerse-go.de:*";
-      contents.user.email = "felix.motzet@stock3.com";
-    }
+let
+  personalEmail = "felix.motzet@gmail.com";
+  workEmail = "felix.motzet@stock3.com";
+  workRemotePatterns = [
+    "*://*gitlab.boerse-go.de*/**"
+    "*gitlab.boerse-go.de*/**"
   ];
+in
+{
+  programs.git.settings.user.email = personalEmail;
+
+  programs.git.includes = map (pattern: {
+    condition = "hasconfig:remote.*.url:${pattern}";
+    contents.user.email = workEmail;
+  }) workRemotePatterns;
 }
