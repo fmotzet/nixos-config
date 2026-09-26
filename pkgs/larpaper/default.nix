@@ -109,10 +109,8 @@ export PATH="${runtimePath}''${PATH:+:$PATH}"'
       --replace-fail '^bash $larpaper' '^${bashExe} $larpaper'
   '';
 
-  # Regenerated rather than patched: the shipped larpaper-idle.desktop carries
-  # `OnlyShowIn=KDE;`, which makes spec-compliant autostart implementations skip
-  # it under XDG_CURRENT_DESKTOP=Hyprland. Only the launcher entry is kept here;
-  # start the idle watcher from the compositor or a systemd user unit instead.
+  # patched: the shipped larpaper-idle.desktop carries`OnlyShowIn=KDE;`, 
+  #which makes autostart implementations skip it when we set XDG_CURRENT_DESKTOP=Hyprland.
   desktopItems = [
     (makeDesktopItem {
       name = "larpaper";
@@ -128,7 +126,7 @@ export PATH="${runtimePath}''${PATH:+:$PATH}"'
   meta = {
     description = "Fullscreen terminal screensaver built on Kitty, tte and swayidle";
     homepage = "https://github.com/2i60/larpaper";
-    license = lib.licenses.mit; # TODO(human): confirm against upstream LICENSE
+    license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "launch-larpaper";
   };
