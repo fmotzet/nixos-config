@@ -1,4 +1,4 @@
-{ noctalia, ... }:
+{ noctalia, lib, ... }:
 {
   # If we have legacy, non generated files, rename them to bak instead of failing
   home-manager.backupFileExtension = "bak";
@@ -128,6 +128,9 @@
         "--force-dark-mode"
         "--enable-features=WebUIDarkMode"
       ];
+      # some programs want to register themselfes to navive MessagingHost (like KeepassXC) however HM wants to manage the nativeMessagingHosts itself
+      # so we need to force the nativeMessagingHosts to be empty to avoid conflicts. See https://github.com/nix-community/home-manager/pull/6515 
+      nativeMessagingHosts = lib.mkForce [ ];
     };
     services.awww = {
       enable = true;

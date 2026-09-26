@@ -51,9 +51,9 @@
       inputstreamhelper
     ]))
 
-    jellyfin-media-player  # Standalone Jellyfin desktop client (alternative to Kodi)
-    libcec                 # CEC utilities (cec-client for debugging)
-    firefox                # Web browser for YouTube etc. from the couch
+    jellyfin-media-player 
+    libcec
+    firefox
   ];
 
   environment.sessionVariables = {
