@@ -33,6 +33,7 @@
       noctalia.homeModules.default
       ./noctalia/noctalia.nix
       ./yazi.nix
+      ./momentumd.nix
     ] ++ (if builtins.pathExists ./git-personal.nix then [ ./git-personal.nix ] else []);
     
     programs.bash = {
