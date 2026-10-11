@@ -13,4 +13,7 @@
     options = "--delete-older-than 14d";
   };
   nix.settings.auto-optimise-store = true;
+
+  # so my wheel users can also push the system config to the vms using "[...] --target-host user@host --sudo --ask-sudo-password"
+  nix.settings.trusted-users = [ "root" "@wheel" ];
 }
