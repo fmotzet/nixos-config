@@ -115,6 +115,14 @@ in
         { _args = [ "SUPER + M" (mkLuaInline exitAction) ]; }
         { _args = [ "SUPER + SHIFT + F" (mkLuaInline "hl.dsp.window.fullscreen()") ]; }
         { _args = [ "SUPER + V" (mkLuaInline ''hl.dsp.window.float({ action = "toggle" })'') ]; }
+        { _args = [ "SUPER + SHIFT + V" (mkLuaInline ''
+          function()
+            local wins = hl.get_workspace_windows(hl.get_active_workspace())
+            for _, win in ipairs(wins) do
+              hl.dispatch(hl.dsp.window.float({ action = "toggle", window = win }))
+            end
+          end
+        '') ]; }   
         { _args = [ "SUPER + R" (mkLuaInline ''hl.dsp.exec_cmd("yazi")'') ]; }
         { _args = [ "SUPER + P" (mkLuaInline "hl.dsp.window.pseudo()") ]; }
         { _args = [ "SUPER + J" (mkLuaInline ''hl.dsp.layout("togglesplit")'') ]; }
