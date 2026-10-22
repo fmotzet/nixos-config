@@ -18,6 +18,7 @@
       tab_powerline_style = "slanted";
       tab_title_template = "{title}{' :{}:'.format(num_windows) if num_windows > 1 else ''}";
       background_opacity = "0.9";
+      remember_window_size = "no";
       cursor_trail = 3;
       cursor_trail_decay = "0.2 0.5";
     };
