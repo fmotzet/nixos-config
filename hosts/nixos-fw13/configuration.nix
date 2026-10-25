@@ -75,6 +75,9 @@
     localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
   };
 
+  # Enable gamescope (for Steam launch options like `gamescope ... -- %command%`)
+  programs.gamescope.enable = true;
+
   # Enable sound hyprland brings sound
   services.pulseaudio.enable = false;
 
