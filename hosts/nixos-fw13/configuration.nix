@@ -45,6 +45,8 @@
   };
   # Enable hyprlock for PAM authentication
   programs.hyprlock.enable = true;
+  # PAM service for swaylock-plugin
+  security.pam.services.swaylock-plugin = { };
 
   # Enable zsh as default user shell
   programs.zsh.enable = true;

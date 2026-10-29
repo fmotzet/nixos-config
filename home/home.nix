@@ -21,6 +21,7 @@
       ./swayidle.nix
       ./swaync.nix
       ./hyprlock.nix
+      ./swaylock-video.nix
       ./fastfetch.nix
       ./kitty.nix
       ./claude-code.nix
