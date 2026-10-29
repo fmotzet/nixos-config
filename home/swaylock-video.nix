@@ -3,7 +3,7 @@ let
   video = ./assets/toyota-yaris-bouncing.mp4;
 
   # Monochrome, see-through indicator: hairline white ring on dark glass.
-  style = lib.cli.toGNUCommandLineShell { } {
+  style = lib.cli.toCommandLineShellGNU { } {
     font = "GeistMono Nerd Font";
     font-size = 14;
     indicator-radius = 90;
