@@ -7,7 +7,9 @@ let
     font = "GeistMono Nerd Font";
     font-size = 14;
     indicator-radius = 90;
-    indicator-thickness = 2;
+    indicator-thickness = 5;
+    indicator-x-position = 140;
+    indicator-y-position = 140;
     ignore-empty-password = true;
     hide-keyboard-layout = true;
 
