@@ -9,4 +9,5 @@ result-*
 home/git-personal.nix
 
 # Dont add CLAUDE.md to repo im scared it will leak secrets 
+.claude 
 CLAUDE.md
