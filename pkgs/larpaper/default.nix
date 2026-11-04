@@ -50,31 +50,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    # The scripts locate each other via `$(dirname "$BASH_SOURCE")` and prefer a
-    # `.sh` sibling, falling back to the extensionless name. Installing them
-    # side by side under the bare names makes that fallback resolve inside the
-    # store, so no path rewriting is needed for sibling lookup.
     install -Dm755 larpaper.sh        "$out/bin/larpaper"
     install -Dm755 launch-larpaper.sh "$out/bin/launch-larpaper"
     install -Dm755 larpaper-idle.sh   "$out/bin/larpaper-idle"
     install -Dm755 larpaper-all.sh    "$out/bin/larpaper-all"
     install -Dm755 larpaper-toggle.sh "$out/bin/larpaper-toggle"
 
-    # DELIBERATELY NOT installed into $out/bin: larpaper.conf and art.txt.
-    # Each script does:
-    #     repo_config="$script_dir/larpaper.conf"
-    #     [[ -r "$repo_config" ]] && config_file="$repo_config" \
-    #                             || config_file="$installed_config"
-    # A conf file next to the binaries would therefore win over
-    # ~/.config/larpaper/larpaper.conf and make the config permanently
-    # read-only in the store. Keeping $out/bin free of it preserves the
-    # user-config path. Ship the defaults as reference material instead.
     install -Dm644 larpaper.conf "$out/share/larpaper/larpaper.conf"
 
-    # Default artwork is the NixOS logo. Sourced from fastfetch's ascii logo,
-    # with its `$1`/`$2` colour placeholders stripped — those are a fastfetch
-    # convention, not ANSI, so tte would render them literally as text. They
-    # occupy no display width, so removing them preserves the alignment.
     install -Dm644 ${./art-nixos.txt} "$out/share/larpaper/art.txt"
     install -Dm644 art.txt            "$out/share/larpaper/art-upstream.txt"
 
@@ -85,32 +68,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   postPatch = ''
-    # Multi-monitor launcher, maintained alongside this derivation rather than
-    # patched into upstream's single-window launch-larpaper.
     cp ${./larpaper-all.sh} larpaper-all.sh
     cp ${./larpaper-toggle.sh} larpaper-toggle.sh
     chmod +w larpaper-all.sh larpaper-toggle.sh
 
-    # Pin the interpreter and give every script a closed runtime PATH, so none
-    # of them depend on what happens to be in the user's environment.
     for script in larpaper.sh launch-larpaper.sh larpaper-idle.sh larpaper-all.sh \
                   larpaper-toggle.sh; do
       substituteInPlace "$script" \
         --replace-fail '#!/usr/bin/env bash' '#!${bashExe}
 export PATH="${runtimePath}''${PATH:+:$PATH}"'
     done
-
-    # Keep the self-identification patterns consistent with the pinned shebang:
-    # argv[0] is now the absolute bash path, not the bare word "bash", so the
-    # original `^bash ` anchor would never match. Without this, launch-larpaper
-    # loses its duplicate-instance guard and larpaper-idle's `resume` action
-    # fails to terminate the screensaver.
     substituteInPlace launch-larpaper.sh larpaper-idle.sh \
       --replace-fail '^bash $larpaper' '^${bashExe} $larpaper'
   '';
 
-  # patched: the shipped larpaper-idle.desktop carries`OnlyShowIn=KDE;`, 
-  #which makes autostart implementations skip it when we set XDG_CURRENT_DESKTOP=Hyprland.
   desktopItems = [
     (makeDesktopItem {
       name = "larpaper";
