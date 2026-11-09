@@ -4,7 +4,6 @@
     [
       ./hardware-configuration.nix
       ../../system/users.nix
-      ../../system/ca-distrust.nix
       # ../../system/rdm.nix
       ../../home/home-TP-t14g6.nix
     ];

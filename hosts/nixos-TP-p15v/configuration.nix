@@ -4,7 +4,6 @@
     [
       ./hardware-configuration.nix
       ../../system/users.nix
-      ../../system/ca-distrust.nix
       ../../home/home-TP-p15v.nix
     ];
 

@@ -7,7 +7,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../system/users.nix
-    ../../system/ca-distrust.nix
     ../../home/home-mhtpc01.nix
   ];
 

@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../../system/users.nix
-    ../../../system/ca-distrust.nix
     ../shared.nix
   ];
 

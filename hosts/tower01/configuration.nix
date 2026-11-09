@@ -5,7 +5,6 @@
     [
       ./hardware-configuration.nix
       ../../system/users.nix
-      ../../system/ca-distrust.nix
       ../../home/home-tower01.nix
     ];
 
