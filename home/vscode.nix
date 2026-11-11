@@ -19,6 +19,7 @@
         "workbench.enableExperiments" = false;
         "workbench.settings.enableNaturalLanguageSearch" = false;
         "sonarlint.pathToNodeExecutable" = "h2barca1k5pmvcyl9fwrzwrb4cn1b248-nodejs-22.22.2";
+         "window.titleBarStyle" = "native";
       };
 
       extensions = with pkgs.vscode-extensions; [
