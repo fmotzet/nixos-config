@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  video = ./assets/toyota-yaris-bouncing.mp4;
+  videos = ./assets;
 
   # Monochrome, see-through indicator: hairline white ring on dark glass.
   style = lib.cli.toCommandLineShellGNU { } {
@@ -45,8 +45,9 @@ let
   };
 
   toyota-lock = pkgs.writeShellScriptBin "toyota-lock" ''
+    video=$(${pkgs.coreutils}/bin/shuf -n1 -e ${videos}/*)
     exec ${pkgs.swaylock-plugin}/bin/swaylock-plugin --grace 5 ${style} \
-      --command-each "${pkgs.mpvpaper}/bin/mpvpaper -o 'no-audio loop' '*' ${video}"
+      --command-each "${pkgs.mpvpaper}/bin/mpvpaper -o 'no-audio loop' '*' $video"
   '';
 in
 {
