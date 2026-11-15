@@ -85,6 +85,14 @@
       ];
     };
 
+    nixosConfigurations.immich01 = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit pkgs-unstable nixpkgs-unstable; };
+      modules = [
+        ./hosts/vms/immich01/configuration.nix
+      ];
+    };
+
     # HTPC
     nixosConfigurations.mhtpc01 = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
