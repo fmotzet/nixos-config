@@ -136,5 +136,10 @@ in
         }
       ];
     };
+
+    wayland.windowManager.hyprland.extraConfig = ''
+      hl.unbind("SUPER + SHIFT + K")
+      hl.bind("SUPER + SHIFT + K", hl.dsp.exec_cmd("TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger stop; shutdown now"))
+    '';
   };
 }
