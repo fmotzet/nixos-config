@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
   inherit (lib.generators) mkLuaInline;
 in
@@ -8,6 +8,9 @@ in
   ];
 
   home-manager.users.felix = {
+    # Node >= 20.19 for Claude Code plugin hooks 
+    home.packages = [ pkgs.nodejs_22 ];
+
     programs.bash.shellAliases = {
       tlstatus = "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger status -m";
       tlstop = "TIME_LOGGER_DIR=/home/felix/time_logger/ /home/felix/time_logger/target/release/time_logger stop";
